@@ -10,6 +10,9 @@ const {
   getFUllCourseDetails,
   getInstructorCourses,
   deleteCourse,
+  addBookmark,
+  removeBookmark,
+  getAllBookmarks,
 } = require("../controllers/Course");
 
 // Importimg categories controller
@@ -83,5 +86,10 @@ router.post("/getCategoryPageDetails", categoryPageDetails);
 router.post("/createRating", auth, isUser, createRating);
 router.get("/getAverageRating", getAverageRating);
 router.get("/getReviews", getAllRating);
+
+// ******************************* Bookmarks *******************************
+router.post("/addBookmark", auth, isUser, addBookmark);
+router.post("/removeBookmark", auth, isUser, removeBookmark);
+router.get("/getAllBookmarks", auth, isUser, getAllBookmarks);
 
 module.exports = router;

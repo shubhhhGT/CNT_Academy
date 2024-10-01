@@ -472,3 +472,103 @@ exports.deleteCourse = async (req, res) => {
     });
   }
 };
+
+// Add bookmark
+exports.addBookmark = async (req, res) => {
+  try {
+    const { courseId } = req.body;
+
+    // find the course
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ message: "course not found" });
+    }
+
+    const userId = req.user.id;
+
+    // Find the user and add the courseId to bookmarks
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { bookmarks: courseId } },
+      { new: true }
+    );
+
+    // Check if user was found
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Bookmark added successfully",
+      bookmarks: user.bookmarks,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+// Remove bookmark
+exports.removeBookmark = async (req, res) => {
+  try {
+    const { courseId } = req.body;
+    const userId = req.user.id;
+
+    // Find the user and remove the courseId from bookmarks
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { bookmarks: courseId } },
+      { new: true } // Return the updated user document
+    );
+
+    // Check if user was found
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Bookmark removed successfully",
+      bookmarks: user.bookmarks,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+// Get all bookmarks
+exports.getAllBookmarks = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // Find the user and populate the bookmarks
+    const user = await User.findById(userId).populate("bookmarks");
+
+    // Check if user was found
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      bookmarks: user.bookmarks,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};

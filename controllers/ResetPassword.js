@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const mailSender = require("../utils/mailSender");
 const bcrypt = require("bcrypt");
-const crypto = require("crypto");
+const otpGenerator = require("otp-generator");
 const {
   passwordResetTemplate,
 } = require("../mail/templates/PasswordResetEmail");
@@ -22,25 +22,25 @@ exports.resetPasswordToken = async (req, res) => {
       });
     }
 
-    // generate token using crypto
-    const token = crypto.randomUUID();
+    // generate OTP
+    const otp = otpGenerator.generate(6, {
+      lowerCaseAlphabets: false,
+      upperCaseAlphabets: false,
+      specialChars: false,
+    });
 
-    // update user by adding token and expiration time
-    const updatedDetails = await User.findOneAndUpdate(
+    // Update user with OTP and expiration time
+    const updatedUser = await User.findOneAndUpdate(
       { email: email },
       {
-        resetPasswordToken: token,
-        resetPasswordExpires: Date.now() + 5 * 60 * 1000,
+        resetPasswordToken: otp,
+        resetPasswordExpires: Date.now() + 5 * 60 * 1000, // OTP valid for 5 minutes
       },
       { new: true }
     );
-    console.log(updatedDetails);
-
-    // create url
-    const url = `http://localhost:3000/update-password/${token}`;
 
     // send email containing url
-    await mailSender(email, "Password Reset Link", passwordResetTemplate(url));
+    await mailSender(email, "Password Reset OTP", passwordResetTemplate(otp));
 
     // return res
     res.status(200).json({
@@ -96,8 +96,19 @@ exports.resetPassword = async (req, res) => {
     // Update Pwd
     await User.findOneAndUpdate(
       { resetPasswordToken: resetPasswordToken },
-      { password: hashedPassword },
+      {
+        password: hashedPassword,
+        resetPasswordToken: null,
+        resetPasswordExpires: null,
+      },
       { new: true }
+    );
+
+    // send email for password reset
+    await mailSender(
+      user.email,
+      "Password Reset Confirmation",
+      passwordUpdated(user.email)
     );
 
     // Return res

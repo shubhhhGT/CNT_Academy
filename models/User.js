@@ -38,6 +38,12 @@ const userSchema = new mongoose.Schema(
         ref: "Course",
       },
     ],
+    bookmarks: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Course",
+      },
+    ],
     image: {
       type: String,
       required: true,
@@ -57,6 +63,12 @@ const userSchema = new mongoose.Schema(
     googleId: {
       type: String,
     },
+    orderHistory: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "OrderHistory",
+      },
+    ],
   },
   // Add timestamps for when the document is created nd last modified
   { timestamps: true }

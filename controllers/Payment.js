@@ -4,6 +4,7 @@ const User = require("../models/User");
 const mailSender = require("../utils/mailSender");
 const crypto = require("crypto");
 const mongoose = require("mongoose");
+const OrderHistory = require("../models/OrderHistory");
 const {
   courseEnrollmentEmail,
 } = require("../mail/templates/courseEnrollmentEmail");
@@ -161,10 +162,23 @@ const enrollStudents = async (courses, userId, res) => {
         completedVideos: [],
       });
 
+      // Create order history entry
+      const orderHistoryEntry = await OrderHistory.create({
+        courseName: enrolledCourse.courseName,
+        instructorName: enrolledCourse.instructor,
+        price: enrolledCourse.price,
+      });
+
       // Update the user with the enrolled course
       const enrolledStudent = await User.findByIdAndUpdate(
         userId,
-        { $push: { courses: courseId, courseProgress: courseProgress._id } },
+        {
+          $push: {
+            courses: courseId,
+            courseProgress: courseProgress._id,
+            orderHistory: orderHistoryEntry._id,
+          },
+        },
         { new: true }
       );
       console.log("enrolled student", enrolledStudent);

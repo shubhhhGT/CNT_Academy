@@ -1,5 +1,5 @@
-exports.passwordResetTemplate = (url) => {
-  console.log("Generating password reset email with URL:", url);
+exports.passwordResetTemplate = (otp) => {
+  console.log("Generating password reset email with OTP:", otp);
   return `<!DOCTYPE html>
       <html>
           
@@ -72,8 +72,8 @@ exports.passwordResetTemplate = (url) => {
                   <div class="message">Password Reset Email</div>
                   <div class="body">
                       <p>Dear User,</p>
-                      <p>Thank you for choosing StudyNotion. Please use the following link to reset your password:</p>
-                      <h2 class="highlight">${url}</h2>
+                      <p>Thank you for choosing StudyNotion. Please use the following OTP to reset your password:</p>
+                      <h2 class="highlight">${otp}</h2>
                   </div>
                   <div class="support">If you have any questions or need assistance, please feel free to reach out to us at <a
                           href="mailto:studynotion007@.com">studynotion007@.com</a>. We are here to help!</div>

@@ -45,8 +45,7 @@ exports.sendOTP = async (req, res) => {
     }
 
     // save otp in database
-    const otpBody = await OTP.create({ email, otp });
-    console.log(otpBody);
+    await OTP.create({ email, otp });
 
     // Send successfull response
     return res.status(200).json({
