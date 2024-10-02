@@ -129,6 +129,7 @@ exports.getAllUsers = async (req, res) => {
     // validation and user details
     const userDetails = await User.findById(id)
       .populate("additionalDetails")
+      .populate("orderHistory")
       .exec();
     // return  res
     return res.status(200).json({

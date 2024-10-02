@@ -67,12 +67,12 @@ exports.passwordResetTemplate = (otp) => {
           
           <body>
               <div class="container">
-                  <a href="https://study-notion-ed-tech-five.vercel.app"><img class="logo"
-                          src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo"></a>
+                  <a href="https://cntacademy.com/"><img class="logo"
+                          src="https://i.postimg.cc/sX4Z3z1Y/CNT-logo.png" alt="CntAcademy Logo"></a>
                   <div class="message">Password Reset Email</div>
                   <div class="body">
                       <p>Dear User,</p>
-                      <p>Thank you for choosing StudyNotion. Please use the following OTP to reset your password:</p>
+                      <p>Thank you for choosing CNT Academy. Please use the following OTP to reset your password:</p>
                       <h2 class="highlight">${otp}</h2>
                   </div>
                   <div class="support">If you have any questions or need assistance, please feel free to reach out to us at <a

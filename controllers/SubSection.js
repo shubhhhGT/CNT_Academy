@@ -8,13 +8,13 @@ require("dotenv").config();
 exports.createSubsection = async (req, res) => {
   try {
     // Fetch data from req body
-    const { sectionId, title, description } = req.body;
+    const { sectionId, title, description, duration } = req.body;
 
     // Extract video
     const video = req.files.video;
 
     // validation
-    if (!sectionId || !title || !description || !video) {
+    if (!sectionId || !title || !description || !video || !duration) {
       return res.status(400).json({
         success: false,
         message: "please enter all deatils before proceeding",
@@ -23,14 +23,6 @@ exports.createSubsection = async (req, res) => {
 
     // Upload to s3
     const videoUrl = await uploadFile(video);
-    const key = videoUrl.split(
-      `${process.env.S3_BUCKET_NAME}.s3.amazonaws.com/`
-    )[1];
-
-    const duration = await getVideoDurationFromS3({
-      Bucket: process.env.S3_BUCKET_NAME,
-      Key: key,
-    });
 
     // create subsection
     const subSectionDeails = await SubSection.create({
@@ -70,7 +62,7 @@ exports.createSubsection = async (req, res) => {
 exports.updateSubSection = async (req, res) => {
   try {
     // Fetch data to be updated
-    const { subSectionId, title, description, sectionId } = req.body;
+    const { subSectionId, title, description, sectionId, duration } = req.body;
 
     const subSection = await SubSection.findById(subSectionId);
     if (!subSection) {
@@ -93,15 +85,6 @@ exports.updateSubSection = async (req, res) => {
       const videoUrl = await uploadFile(video);
 
       subSection.videoUrl = videoUrl;
-      const key = videoUrl.split(
-        `${process.env.S3_BUCKET_NAME}.s3.amazonaws.com/`
-      )[1];
-
-      const duration = await getVideoDurationFromS3({
-        Bucket: process.env.S3_BUCKET_NAME,
-        Key: key,
-      });
-
       subSection.timeDuration = duration || 6;
     }
 

@@ -74,8 +74,8 @@ exports.contactUsEmail = (
       
       <body>
           <div class="container">
-              <a href="https://study-notion-ed-tech-five.vercel.app"><img class="logo"
-                      src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo"></a>
+              <a href="https://cntacademy.com/"><img class="logo"
+                      src="https://i.postimg.cc/sX4Z3z1Y/CNT-logo.png" alt="CntAcademy Logo"></a>
               <div class="message">Contact Form Confirmation</div>
               <div class="body">
                   <p>Dear ${firstname} ${lastname},</p>
@@ -159,8 +159,8 @@ exports.adminContactNotification = (
         
         <body>
             <div class="container">
-                <a href="https://study-notion-ed-tech-five.vercel.app"><img class="logo"
-                        src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo"></a>
+                <a href="https://cntacademy.com/"><img class="logo"
+                        src="https://i.postimg.cc/sX4Z3z1Y/CNT-logo.png" alt="CntAcademy Logo"></a>
                 <div class="message">New Contact Form Submission</div>
                 <div class="body">
                     <p><span class="highlight">New contact form submission received:</span></p>

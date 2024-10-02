@@ -67,8 +67,8 @@ exports.courseEnrollmentEmail = (courseName, name) => {
       
       <body>
           <div class="container">
-              <a href="https://study-notion-ed-tech-five.vercel.app"><img class="logo" src="https://i.ibb.co/7Xyj3PC/logo.png"
-                      alt="StudyNotion Logo"></a>
+              <a href="https://cntacademy.com/"><img class="logo" src="https://i.postimg.cc/sX4Z3z1Y/CNT-logo.png"
+                      alt="CntAcademy Logo"></a>
               <div class="message">Course Registration Confirmation</div>
               <div class="body">
                   <p>Dear ${name},</p>
@@ -76,7 +76,6 @@ exports.courseEnrollmentEmail = (courseName, name) => {
                       are excited to have you as a participant!</p>
                   <p>Please log in to your learning dashboard to access the course materials and start your learning journey.
                   </p>
-                  <a class="cta" href="https://study-notion-ed-tech-five.vercel.app/dashboard">Go to Dashboard</a>
               </div>
               <div class="support">If you have any questions or need assistance, please feel free to reach out to us at <a
                       href="mailto:studynotion007@.com">studynotion007@.com</a>. We are here to help!</div>

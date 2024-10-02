@@ -66,12 +66,12 @@ const otpTemplate = (otp) => {
       
       <body>
           <div class="container">
-              <a href="https://study-notion-ed-tech-five.vercel.app"><img class="logo"
-                      src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo"></a>
+              <a href="https://cntacademy.com/"><img class="logo"
+                      src="https://i.postimg.cc/sX4Z3z1Y/CNT-logo.png" alt="CntAcademy Logo"></a>
               <div class="message">OTP Verification Email</div>
               <div class="body">
                   <p>Dear User,</p>
-                  <p>Thank you for registering with StudyNotion. To complete your registration, please use the following OTP
+                  <p>Thank you for registering with CNT Academy. To complete your registration, please use the following OTP
                       (One-Time Password) to verify your account:</p>
                   <h2 class="highlight">${otp}</h2>
                   <p>This OTP is valid for 5 minutes. If you did not request this verification, please disregard this email.

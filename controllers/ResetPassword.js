@@ -47,6 +47,7 @@ exports.resetPasswordToken = async (req, res) => {
       success: true,
       message:
         "Email sent successfully, please check email and generate new passowrd",
+      otp: otp,
     });
   } catch (error) {
     console.log(error);
