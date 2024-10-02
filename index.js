@@ -4,7 +4,6 @@ const app = express();
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const cors = require("cors");
-const session = require("express-session");
 const helmet = require("helmet");
 const fileUpload = require("express-fileupload");
 const { OAuth2Client } = require("google-auth-library");
@@ -20,15 +19,6 @@ const PORT = process.env.PORT || 4001;
 // Use helmet middleware for security
 app.use(helmet());
 
-// Use express-session middleware
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET, // Add a secret for session security
-    resave: false,
-    saveUninitialized: true,
-  })
-);
-
 app.use(
   fileUpload({
     useTempFiles: false,
@@ -39,7 +29,6 @@ app.use(
 // middlewares
 app.use(cookieParser());
 app.use(express.json());
-// app.use(cors(corsOptions));
 app.use(
   cors({
     origin: "*",
@@ -108,7 +97,7 @@ app.get("/", (req, res) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.log("Middleware Error Hadnling");
+  console.log("Middleware Error Handling");
   const errStatus = err.statusCode || 500;
   const errMsg = err.message || "Something went wrong";
   res.status(errStatus).json({
