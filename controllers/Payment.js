@@ -146,7 +146,7 @@ const enrollStudents = async (courses, userId, res) => {
         { _id: courseId },
         { $push: { studentsEntrolled: userId } },
         { new: true }
-      );
+      ).populate("instructor");
 
       if (!enrolledCourse) {
         return res.status(404).json({
@@ -165,7 +165,7 @@ const enrollStudents = async (courses, userId, res) => {
       // Create order history entry
       const orderHistoryEntry = await OrderHistory.create({
         courseName: enrolledCourse.courseName,
-        instructorName: enrolledCourse.instructor,
+        instructorName: `${enrolledCourse.instructor.firstName} ${enrolledCourse.instructor.lastName}`,
         price: enrolledCourse.price,
       });
 
