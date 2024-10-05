@@ -7,6 +7,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const fileUpload = require("express-fileupload");
 const { OAuth2Client } = require("google-auth-library");
+const { loginWithGoogle } = require("./controllers/Auth");
 
 const userRoutes = require("./routes/User");
 const profileRoutes = require("./routes/Profile");
