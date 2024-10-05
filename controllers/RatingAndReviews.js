@@ -36,11 +36,14 @@ exports.createRating = async (req, res) => {
       });
     }
 
+    const user = await User.findOne({ _id: userId });
+
     // Create Rating and review
     const ratingReview = await RatingAndReviews.create({
       rating,
       review,
       user: userId,
+      username: `${user.firstName} ${user.lastName}`,
       course: courseId,
     });
 
