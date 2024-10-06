@@ -255,10 +255,12 @@ exports.loginWithGoogle = async (profile) => {
           contactNumber: null,
         });
 
+        const name = profile["name"].split(" ");
+
         const newUser = new User({
           googleId: profile["sub"],
-          firstName: profile["givenName"],
-          lastName: profile["familyName"],
+          firstName: name[0],
+          lastName: name[1],
           email: profile["email"],
           password: undefined,
           accountType: "User",
