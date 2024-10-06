@@ -264,7 +264,7 @@ exports.loginWithGoogle = async (profile) => {
           email: profile["email"],
           password: undefined,
           accountType: "User",
-          additionalDetails: profileDetails._id,
+          additionalDetails: profileDetails,
           image: profile["picture"],
         });
 
