@@ -71,7 +71,7 @@ app.post("/api/v1/auth/login/google/mobile", async (req, res) => {
       success: true,
       message: "Logged in successfully",
       token: jwtToken,
-      user,
+      existingUser: user,
       isNewUser,
     });
   } catch (error) {
