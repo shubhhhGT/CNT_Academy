@@ -67,7 +67,13 @@ app.post("/api/v1/auth/login/google/mobile", async (req, res) => {
     });
 
     // Send back the JWT token to the Flutter app
-    res.json({ token: jwtToken, user, isNewUser });
+    res.json({
+      success: true,
+      message: "Logged in successfully",
+      token: jwtToken,
+      user,
+      isNewUser,
+    });
   } catch (error) {
     console.error(error);
     res.status(401).json({ error: "Invalid Google Token" });
