@@ -7,6 +7,8 @@ const mailSender = async (email, title, body) => {
     // Create Transporter
     let transporter = nodemailer.createTransport({
       host: process.env.MAIL_HOST,
+      port: 465, // Use port 465 for SSL
+      secure: true, // Use SSL
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
