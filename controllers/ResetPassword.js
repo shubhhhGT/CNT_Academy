@@ -22,6 +22,14 @@ exports.resetPasswordToken = async (req, res) => {
       });
     }
 
+    // Check if user have logged in with google or basic credentials
+    if (user.googleId.length !== 0) {
+      return res.status(401).json({
+        success: false,
+        message: "You have logged in with Google. Please use google login",
+      });
+    }
+
     // generate OTP
     const otp = otpGenerator.generate(6, {
       lowerCaseAlphabets: false,
