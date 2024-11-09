@@ -35,7 +35,7 @@ router.post("/reset-password-token", resetPasswordToken);
 router.post("/reset-password", resetPassword);
 
 // route for getting a user from token
-router.get("/get-user-from-token/:resetPasswordToken", getUserFromToken);
+router.post("/get-user-from-token", getUserFromToken);
 
 // route for sending password update email
 router.post("/send-confirmation-email", passUpdateEmail);

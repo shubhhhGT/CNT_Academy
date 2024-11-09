@@ -23,7 +23,7 @@ exports.resetPasswordToken = async (req, res) => {
     }
 
     // Check if user have logged in with google or basic credentials
-    if (user.googleId.length !== 0) {
+    if (user.googleId && user.googleId.length !== 0) {
       return res.status(401).json({
         success: false,
         message: "You have logged in with Google. Please use google login",
@@ -137,7 +137,7 @@ exports.resetPassword = async (req, res) => {
 exports.getUserFromToken = async (req, res) => {
   try {
     // Get token from either req.body or req.params
-    const { resetPasswordToken } = req.params;
+    const { resetPasswordToken } = req.body;
     console.log(resetPasswordToken);
 
     // Check if token is present

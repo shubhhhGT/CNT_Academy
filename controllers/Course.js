@@ -81,7 +81,7 @@ exports.createCourse = async (req, res) => {
     const uploadResult = await uploadFile(thumbnail);
 
     // Get the S3 URL
-    const thumbnailUrl = uploadResult.Location;
+    const thumbnailUrl = uploadResult;
 
     // Create an entry for new course
     const newCourse = await Course.create({
@@ -159,7 +159,7 @@ exports.editCourse = async (req, res) => {
       console.log("thumbnail update");
       const thumbnail = req.files.thumbnailImage;
       const thumbnailImage = await uploadFile(thumbnail);
-      course.thumbnail = thumbnailImage.Location;
+      course.thumbnail = thumbnailImage;
     }
 
     // Update only the fields that are present in req body
@@ -426,6 +426,7 @@ exports.deleteCourse = async (req, res) => {
   try {
     // get course id to be deleted
     const { courseId } = req.body;
+    const userId = req.user.id;
 
     // find the course
     const course = await Course.findById(courseId);
@@ -455,6 +456,11 @@ exports.deleteCourse = async (req, res) => {
       // Delete section
       await Section.findByIdAndDelete(sectionId);
     }
+
+    // Find the admin and delete the course from his list of courses
+    await User.findByIdAndUpdate(userId, {
+      $pull: { courses: courseId },
+    });
 
     // Delete course
     await Course.findByIdAndDelete(courseId);

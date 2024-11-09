@@ -156,7 +156,7 @@ exports.updateProfilePicture = async (req, res) => {
     // Update prfile pic of user
     const updatedPicture = await User.findByIdAndUpdate(
       { _id: userId },
-      { image: image.Location },
+      { image: image },
       { new: true }
     );
 

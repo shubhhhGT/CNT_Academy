@@ -73,7 +73,7 @@ router.post("/editCourse", auth, isAdmin, editCourse);
 // Get all courses for a specific instuctor
 router.get("/getInstructorCourses", auth, isAdmin, getInstructorCourses);
 // delete course
-router.delete("/deleteCourse", deleteCourse);
+router.delete("/deleteCourse", auth, isAdmin, deleteCourse);
 
 router.post("/updateCourseProgress", auth, isUser, updateCourseProgress);
 
