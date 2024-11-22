@@ -72,7 +72,6 @@ exports.signUp = async (req, res) => {
       email,
       password,
       confirmPassword,
-      accountType,
       otp,
     } = req.body;
 
@@ -133,6 +132,8 @@ exports.signUp = async (req, res) => {
       about: null,
       contactNumber: null,
     });
+
+    const accountType = 'User'
 
     // Create entry in DB
     const user = await User.create({
