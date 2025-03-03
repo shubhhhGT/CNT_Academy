@@ -15,6 +15,7 @@ const profileRoutes = require("./routes/Profile");
 const paymentRoutes = require("./routes/Payments");
 const courseroutes = require("./routes/Course");
 const contactUsRoute = require("./routes/Contact");
+const cartRoutes = require("./routes/cart");
 
 const PORT = process.env.PORT || 4001;
 
@@ -94,6 +95,7 @@ app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/payment", paymentRoutes);
 app.use("/api/v1/course", courseroutes);
 app.use("/api/v1/reach", contactUsRoute);
+app.use("/api/v1/course", cartRoutes);
 
 // Default route
 app.get("/", (req, res) => {
