@@ -6,6 +6,8 @@ const SubSection = require("../models/SubSection");
 const { uploadFile } = require("../utils/uploadToS3");
 const convertSecondsToDuration = require("../utils/secToDuration");
 const CourseProgress = require("../models/CourseProgress");
+const RatingAndReviews = require("../models/RatingAndReview");
+const { default: mongoose } = require("mongoose");
 
 // create course handler
 exports.createCourse = async (req, res) => {
@@ -23,6 +25,7 @@ exports.createCourse = async (req, res) => {
       tag: _tag,
       instructions: _instructions,
       status,
+      courseType,
     } = req.body;
 
     // Get thumbnail
@@ -43,7 +46,8 @@ exports.createCourse = async (req, res) => {
       !category ||
       !thumbnail ||
       !tag.length ||
-      !instructions.length
+      !instructions.length ||
+      !courseType
     ) {
       return res.this.status(400).jon({
         success: false,
@@ -95,6 +99,7 @@ exports.createCourse = async (req, res) => {
       status: status,
       category: categoryDetails._id,
       thumbnail: thumbnailUrl,
+      courseType: courseType,
     });
 
     // Add the new course to the schema of instructor
@@ -576,5 +581,236 @@ exports.getAllBookmarks = async (req, res) => {
       message: "Internal server error",
       error: error.message,
     });
+  }
+};
+
+// Get courses by course type
+exports.getCoursesByType = async (req, res) => {
+  try {
+    const { courseType } = req.params;
+
+    let coursesQuery = Course.find({ status: "Published" });
+
+    // Apply different logic if the courseType is "Most popular"
+    if (courseType === "Most popular") {
+      coursesQuery = coursesQuery
+        .sort({ studentsEntrolled: -1 }) // Sort by the number of enrolled students in descending order
+        .limit(3); // Get only the top 3 courses
+    } else {
+      coursesQuery = coursesQuery
+        .find({ courseType: courseType }) // Filter by specific courseType
+        .limit(3); // Get only the top 3 courses
+    }
+
+    // Fetch courses with only necessary fields
+    const courses = await coursesQuery
+      .select(
+        "courseName courseDescription thumbnail courseType courseContent studentsEntrolled"
+      )
+      .populate({
+        path: "courseContent",
+        populate: {
+          path: "subSection",
+          select: "sectionName subSection",
+        },
+      })
+      .exec();
+
+    // Check if courses are found
+    if (!courses || courses.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No courses found for this type" });
+    }
+
+    // Calculate the total number of lessons (sub-sections) for each course
+    const coursesWithLessonCount = await Promise.all(
+      courses.map(async (course) => {
+        const totalLessons = await Section.aggregate([
+          { $match: { _id: { $in: course.courseContent } } },
+          { $unwind: "$subSection" },
+          { $count: "totalLessons" },
+        ]);
+
+        return {
+          ...course.toObject(),
+          totalLessons:
+            totalLessons.length > 0 ? totalLessons[0].totalLessons : 0,
+        };
+      })
+    );
+
+    res.status(200).json({ success: true, courses: coursesWithLessonCount });
+  } catch (error) {
+    console.error("Error fetching courses by type:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+// Get courses by "Stratergy" course type
+// exports.getStratergyCourses = async (req, res) => {
+//   try {
+//     // Fetch courses with the "Stratergy" course type and "Published" status
+//     const courses = await Course.find({
+//       courseType: "Stratergy",
+//       status: "Published",
+//     })
+//       .select(
+//         "courseName courseDescription thumbnail instructor price studentsEntrolled courseContent"
+//       )
+//       .populate("instructor", "firstName lastName")
+//       .populate({
+//         path: "courseContent",
+//         populate: {
+//           path: "subSection",
+//           select: "sectionName subSection timeDuration",
+//         },
+//       });
+
+//     console.log(courses);
+
+//     // Find the total duration
+//     let totalDurationinSeconds = 0;
+//     courses.forEach((course) => {
+//       course.courseContent.forEach((content) => {
+//         content.subSection.forEach((subSection) => {
+//           const timeDurationinSeconds = parseInt(subSection.timeDuration);
+//           totalDurationinSeconds += timeDurationinSeconds;
+//         });
+//       });
+//     });
+
+//     const totalDuration = convertSecondsToDuration(totalDurationinSeconds);
+//     console.log(totalDuration);
+
+//     // Check if courses are found
+//     if (!courses || courses.length === 0) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "No courses found for Stratergy type",
+//       });
+//     }
+
+//     // Calculate the average rating and total lessons for each course
+//     const coursesWithDetails = await Promise.all(
+//       courses.map(async (course) => {
+//         // Calculate total lessons (sub-sections)
+//         const totalLessons = await Section.aggregate([
+//           { $match: { _id: { $in: course.courseContent } } },
+//           { $unwind: "$subSection" },
+//           { $count: "totalLessons" },
+//         ]);
+
+//         // Calculate average rating
+//         const ratingResult = await RatingAndReviews.aggregate([
+//           {
+//             $match: { course: new mongoose.Types.ObjectId(course._id) },
+//           },
+//           {
+//             $group: {
+//               _id: null,
+//               averageRating: { $avg: "$rating" },
+//             },
+//           },
+//         ]);
+
+//         return {
+//           ...course.toObject(),
+//           totalLessons:
+//             totalLessons.length > 0 ? totalLessons[0].totalLessons : 0,
+//           averageRating:
+//             ratingResult.length > 0 ? ratingResult[0].averageRating : 0,
+//         };
+//       })
+//     );
+
+//     // Respond with the detailed course information
+//     res.status(200).json({ success: true, courses: coursesWithDetails });
+//   } catch (error) {
+//     console.error("Error fetching Stratergy courses:", error);
+//     res.status(500).json({ success: false, message: "Server error" });
+//   }
+// };
+
+// Get courses by "Stratergy" course type
+exports.getStratergyCourses = async (req, res) => {
+  try {
+    // Fetch courses with the "Stratergy" course type and "Published" status
+    const courses = await Course.find({
+      courseType: "Stratergy",
+      status: "Published",
+    })
+      .select(
+        "courseName courseDescription thumbnail instructor price studentsEntrolled courseContent"
+      )
+      .populate("instructor", "firstName lastName")
+      .populate({
+        path: "courseContent",
+        populate: {
+          path: "subSection",
+          select: "sectionName subSection timeDuration",
+        },
+      });
+
+    // Check if courses are found
+    if (!courses || courses.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No courses found for Stratergy type",
+      });
+    }
+
+    // Calculate the average rating, total lessons, and individual total duration for each course
+    const coursesWithDetails = await Promise.all(
+      courses.map(async (course) => {
+        // Calculate total lessons (sub-sections)
+        const totalLessons = await Section.aggregate([
+          { $match: { _id: { $in: course.courseContent } } },
+          { $unwind: "$subSection" },
+          { $count: "totalLessons" },
+        ]);
+
+        // Calculate average rating
+        const ratingResult = await RatingAndReviews.aggregate([
+          {
+            $match: { course: new mongoose.Types.ObjectId(course._id) },
+          },
+          {
+            $group: {
+              _id: null,
+              averageRating: { $avg: "$rating" },
+            },
+          },
+        ]);
+
+        // Calculate total duration for the current course
+        let totalDurationinSeconds = 0;
+        course.courseContent.forEach((content) => {
+          content.subSection.forEach((subSection) => {
+            const timeDurationinSeconds = parseInt(subSection.timeDuration, 10);
+            if (!isNaN(timeDurationinSeconds)) {
+              totalDurationinSeconds += timeDurationinSeconds;
+            }
+          });
+        });
+
+        const totalDuration = convertSecondsToDuration(totalDurationinSeconds);
+
+        return {
+          ...course.toObject(),
+          totalLessons:
+            totalLessons.length > 0 ? totalLessons[0].totalLessons : 0,
+          averageRating:
+            ratingResult.length > 0 ? ratingResult[0].averageRating : 0,
+          totalTime: totalDuration, // Add total time to the course object
+        };
+      })
+    );
+
+    // Respond with the detailed course information
+    res.status(200).json({ success: true, courses: coursesWithDetails });
+  } catch (error) {
+    console.error("Error fetching Stratergy courses:", error);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };

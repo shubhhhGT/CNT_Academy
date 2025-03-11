@@ -61,6 +61,11 @@ const courseSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  courseType: {
+    type: String,
+    enum: ["Beginner", "Intermediate", "Advanced", "Stratergy", "Free"],
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Course", courseSchema);

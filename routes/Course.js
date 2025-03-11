@@ -13,6 +13,8 @@ const {
   addBookmark,
   removeBookmark,
   getAllBookmarks,
+  getCoursesByType,
+  getStratergyCourses,
 } = require("../controllers/Course");
 
 // Importimg categories controller
@@ -74,8 +76,12 @@ router.post("/editCourse", auth, isAdmin, editCourse);
 router.get("/getInstructorCourses", auth, isAdmin, getInstructorCourses);
 // delete course
 router.delete("/deleteCourse", auth, isAdmin, deleteCourse);
-
+// Update course Progress
 router.post("/updateCourseProgress", auth, isUser, updateCourseProgress);
+// Get course by type
+router.get("/getCoursesByType/:courseType", getCoursesByType);
+// Route to get all Stratergy courses
+router.get("/getCoursesByStratergy", getStratergyCourses);
 
 // ******************************* Category routes (Only by Admin) *******************************
 router.post("/createCategory", auth, isAdmin, createCategory);
