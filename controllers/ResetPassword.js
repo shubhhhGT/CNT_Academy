@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const mailSender = require("../utils/mailSender");
+const { mailSender } = require("../utils/mailSender");
 const bcrypt = require("bcrypt");
 const otpGenerator = require("otp-generator");
 const {

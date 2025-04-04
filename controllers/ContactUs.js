@@ -2,7 +2,7 @@ const {
   contactUsEmail,
   adminContactNotification,
 } = require("../mail/templates/contactFormRes");
-const mailSender = require("../utils/mailSender");
+const { mailSender } = require("../utils/mailSender");
 
 exports.contactUsController = async (req, res) => {
   try {

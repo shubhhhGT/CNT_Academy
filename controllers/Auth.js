@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const Profile = require("../models/Profile");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const mailSender = require("../utils/mailSender");
+const { mailSender } = require("../utils/mailSender");
 const { passwordUpdated } = require("../mail/templates/passwordUpdate");
 
 // Otp Send
@@ -66,14 +66,8 @@ exports.sendOTP = async (req, res) => {
 exports.signUp = async (req, res) => {
   try {
     // Get data for signup from req body
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-      confirmPassword,
-      otp,
-    } = req.body;
+    const { firstName, lastName, email, password, confirmPassword, otp } =
+      req.body;
 
     // Validate the data
     if (
@@ -133,7 +127,7 @@ exports.signUp = async (req, res) => {
       contactNumber: null,
     });
 
-    const accountType = 'User'
+    const accountType = "User";
 
     // Create entry in DB
     const user = await User.create({

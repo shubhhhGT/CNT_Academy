@@ -48,6 +48,9 @@ const {
 const { updateCourseProgress } = require("../controllers/CourseProgress");
 // Middlewares
 const { auth, isUser, isAdmin } = require("../middlewares/auth");
+const {
+  generateAndEmailCertificate,
+} = require("../controllers/certificateController");
 
 // ******************************* Course routes  *******************************
 // Course can be created only by instructor
@@ -82,6 +85,8 @@ router.post("/updateCourseProgress", auth, isUser, updateCourseProgress);
 router.get("/getCoursesByType/:courseType", getCoursesByType);
 // Route to get all Stratergy courses
 router.get("/getCoursesByStratergy", getStratergyCourses);
+// generate certificate
+router.post("/generate-certificate", auth, generateAndEmailCertificate);
 
 // ******************************* Category routes (Only by Admin) *******************************
 router.post("/createCategory", auth, isAdmin, createCategory);
