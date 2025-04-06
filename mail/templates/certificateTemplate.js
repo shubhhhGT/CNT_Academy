@@ -122,24 +122,24 @@ exports.certificateTemplate = ({ userName, courseName, issueDate }) => `
     <div class="certificate">
       <div class="header">Certificate Of Completion</div>
       <img
-        src="./cnt_frontend/src/assets/Images/wave1.png"
+        src="../../assets/images/wave1.png"
         alt="Blue Ribbon"
         class="blue-ribbon"
       />
       <img
-        src="./cnt_frontend/src/assets/Images/wave2.png"
+        src="../../assets/images/wave2.png"
         alt="Gold Ribbon"
         class="gold-ribbon"
       />
       <img
-        src="./cnt_frontend/src/assets/Images/badge.png"
+        src="../../assets/images/badge.png"
         alt="badge"
         class="badge"
       />
       <div class="empty"></div>
       <div class="image-container">
         <img
-          src="./cnt_frontend/src/assets/Logo/CNT-logo.png"
+          src="../../assets/images/CNT-logo.png"
           alt="Company Logo"
           class="logo"
         />
@@ -161,7 +161,7 @@ exports.certificateTemplate = ({ userName, courseName, issueDate }) => `
           <div class="signatures">
             <div class="signature">
               <img
-                src="./cnt_frontend/src/assets/Images/signature.png"
+                src="../../assets/images/signature.png"
                 alt="Instructor Signature"
               />
               <strong>Vikash Bagaria</strong><br />

@@ -75,7 +75,7 @@ exports.contactUsEmail = (
       <body>
           <div class="container">
               <a href="https://cntacademy.com/"><img class="logo"
-                      src="https://i.postimg.cc/sX4Z3z1Y/CNT-logo.png" alt="CntAcademy Logo"></a>
+                      src="../../assets/images/CNT-logo.png" alt="CntAcademy Logo"></a>
               <div class="message">Contact Form Confirmation</div>
               <div class="body">
                   <p>Dear ${firstname} ${lastname},</p>

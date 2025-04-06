@@ -52,11 +52,17 @@ exports.generateAndEmailCertificate = async (req, res) => {
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "load" });
     // Option 1: Using custom dimensions matching your HTML (if needed)
-    // const pdfBuffer = await page.pdf({ width: "1566px", height: "701px", landscape: true, printBackground: true });
+    // const pdfBuffer = await page.pdf({
+    //   width: "1566px",
+    //   height: "701px",
+    //   landscape: true,
+    //   printBackground: true,
+    // });
     // Option 2: Using A4 landscape (standard, usually works well)
     const pdfBuffer = await page.pdf({
       format: "A4",
       landscape: true,
+      printBackground: true,
       printBackground: true,
     });
     await browser.close();

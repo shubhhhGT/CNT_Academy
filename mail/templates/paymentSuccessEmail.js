@@ -67,7 +67,7 @@ exports.paymentSuccessEmail = (name, amount, orderId, paymentId) => {
         
         <body>
             <div class="container">
-                <a href="https://cntacademy.com/"><img class="logo" src="https://i.postimg.cc/sX4Z3z1Y/CNT-logo.png"
+                <a href="https://cntacademy.com/"><img class="logo" src="../../assets/images/CNT-logo.png"
                         alt="CntAcademy Logo"></a>
                 <div class="message">Course Payment Confirmation</div>
                 <div class="body">
