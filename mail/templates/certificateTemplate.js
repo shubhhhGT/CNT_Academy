@@ -1,4 +1,13 @@
-exports.certificateTemplate = ({ userName, courseName, issueDate }) => `
+exports.certificateTemplate = ({
+  userName,
+  courseName,
+  issueDate,
+  wave1Base64,
+  wave2Base64,
+  badgeBase64,
+  logoBase64,
+  signatureBase64,
+}) => `
   <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,7 +15,19 @@ exports.certificateTemplate = ({ userName, courseName, issueDate }) => `
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Certificate of Completion</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Pinyon+Script&display=swap");
+ @font-face {
+    font-family: 'Pinyon Script';
+    font-style: normal;
+    font-weight: 400;
+    src: url(data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAA...[truncated]) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Dancing Script';
+    font-style: normal;
+    font-weight: 400;
+    src: url(data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAA...[truncated]) format('woff2');
+  }
       body {
         background-color: #f8f8f8;
         margin: 0;
@@ -121,28 +142,12 @@ exports.certificateTemplate = ({ userName, courseName, issueDate }) => `
   <body>
     <div class="certificate">
       <div class="header">Certificate Of Completion</div>
-      <img
-        src="../../assets/images/wave1.png"
-        alt="Blue Ribbon"
-        class="blue-ribbon"
-      />
-      <img
-        src="../../assets/images/wave2.png"
-        alt="Gold Ribbon"
-        class="gold-ribbon"
-      />
-      <img
-        src="../../assets/images/badge.png"
-        alt="badge"
-        class="badge"
-      />
+     <img src="data:image/png;base64,${wave1Base64}" alt="Blue Ribbon" class="blue-ribbon" />
+      <img src="data:image/png;base64,${wave2Base64}" alt="Gold Ribbon" class="gold-ribbon" />
+      <img src="data:image/png;base64,${badgeBase64}" alt="badge" class="badge" />
       <div class="empty"></div>
       <div class="image-container">
-        <img
-          src="../../assets/images/CNT-logo.png"
-          alt="Company Logo"
-          class="logo"
-        />
+        <img src="data:image/png;base64,${logoBase64}" alt="Company Logo" class="logo" />
 
         <div>
           <div class="content">
@@ -160,10 +165,7 @@ exports.certificateTemplate = ({ userName, courseName, issueDate }) => `
           </div>
           <div class="signatures">
             <div class="signature">
-              <img
-                src="../../assets/images/signature.png"
-                alt="Instructor Signature"
-              />
+              <img src="data:image/png;base64,${signatureBase64}" alt="Instructor Signature" />
               <strong>Vikash Bagaria</strong><br />
               Instructor
             </div>
