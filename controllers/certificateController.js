@@ -28,7 +28,7 @@ exports.generateAndEmailCertificate = async (req, res) => {
       courseID: courseId,
     }).populate({
       path: "courseID",
-      populate: { path: "courseContent", populate: { path: "subSections" } },
+      populate: { path: "courseContent", populate: { path: "subSection" } },
     });
     const totalVideos = progress.courseID.courseContent.flatMap(
       (section) => section.subSections
