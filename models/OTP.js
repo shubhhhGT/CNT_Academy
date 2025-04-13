@@ -1,6 +1,6 @@
 // import mongoose for creating a schema
 const mongoose = require("mongoose");
-const mailSender = require("../utils/mailSender");
+const {mailSender} = require("../utils/mailSender");
 const emailTemplate = require("../mail/templates/emailVerificationTemplate");
 
 // Create and export the schema
