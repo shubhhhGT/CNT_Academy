@@ -142,12 +142,12 @@ exports.certificateTemplate = ({
   <body>
     <div class="certificate">
       <div class="header">Certificate Of Completion</div>
-     <img src="data:image/png;base64,${wave1Base64}" alt="Blue Ribbon" class="blue-ribbon" />
-      <img src="data:image/png;base64,${wave2Base64}" alt="Gold Ribbon" class="gold-ribbon" />
-      <img src="data:image/png;base64,${badgeBase64}" alt="badge" class="badge" />
+     <img src="https://chartntrade-backend-bucket-1.s3.ap-south-1.amazonaws.com/CNT_Academy/wave1.png" alt="Blue Ribbon" class="blue-ribbon" />
+      <img src="https://chartntrade-backend-bucket-1.s3.ap-south-1.amazonaws.com/CNT_Academy/wave2.png" alt="Gold Ribbon" class="gold-ribbon" />
+      <img src="https://chartntrade-backend-bucket-1.s3.ap-south-1.amazonaws.com/CNT_Academy/badge.png" alt="badge" class="badge" />
       <div class="empty"></div>
       <div class="image-container">
-        <img src="data:image/png;base64,${logoBase64}" alt="Company Logo" class="logo" />
+        <img src="https://chartntrade-backend-bucket-1.s3.ap-south-1.amazonaws.com/CNT_Academy/CNT-logo.png" alt="Company Logo" class="logo" />
 
         <div>
           <div class="content">
@@ -165,7 +165,7 @@ exports.certificateTemplate = ({
           </div>
           <div class="signatures">
             <div class="signature">
-              <img src="data:image/png;base64,${signatureBase64}" alt="Instructor Signature" />
+              <img src="https://chartntrade-backend-bucket-1.s3.ap-south-1.amazonaws.com/CNT_Academy/signature.png" alt="Instructor Signature" />
               <strong>Vikash Bagaria</strong><br />
               Instructor
             </div>

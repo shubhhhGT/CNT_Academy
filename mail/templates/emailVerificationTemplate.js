@@ -67,7 +67,7 @@ const otpTemplate = (otp) => {
       <body>
           <div class="container">
               <a href="https://cntacademy.com/"><img class="logo"
-                      src="../../assets/images/CNT-logo.png" alt="CntAcademy Logo"></a>
+                      src="https://chartntrade-backend-bucket-1.s3.ap-south-1.amazonaws.com/CNT_Academy/CNT-logo.png" alt="CntAcademy Logo"></a>
               <div class="message">OTP Verification Email</div>
               <div class="body">
                   <p>Dear User,</p>
