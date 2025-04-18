@@ -20,7 +20,7 @@ const mailSender = async (email, title, body) => {
     );
 
     const mailDetails = {
-      from: `"CNT Academy" <${process.env.MAIL_USER}>`,
+      from: `${process.env.MAIL_USER}`,
       to: `${email}`,
       subject: `${title}`,
       html: `${body}`,
