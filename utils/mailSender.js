@@ -20,10 +20,10 @@ const mailSender = async (email, title, body) => {
     );
 
     const mailDetails = {
-      from: `${process.env.MAIL_USER}`,
-      to: `${email}`,
-      subject: `${title}`,
-      html: `${body}`,
+      from: process.env.MAIL_USER,
+      to: email,
+      subject: title,
+      html: body,
     };
 
     // Send mail
@@ -52,8 +52,8 @@ const sendEmailWithAttachment = async (
     // Create transporter
     let transporter = nodemailer.createTransport({
       host: process.env.MAIL_HOST,
-      port: 465,
-      secure: true,
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
@@ -62,7 +62,7 @@ const sendEmailWithAttachment = async (
 
     // Send mail with attachment
     let info = await transporter.sendMail({
-      from: `"CNT Academy" <${process.env.MAIL_USER}>`,
+      from: `${process.env.MAIL_USER}`,
       to: email,
       subject: subject,
       html: body,
