@@ -1,6 +1,6 @@
 // import mongoose for creating a schema
 const mongoose = require("mongoose");
-const {mailSender} = require("../utils/mailSender");
+const { mailSender } = require("../utils/mailSender");
 const emailTemplate = require("../mail/templates/emailVerificationTemplate");
 
 // Create and export the schema
@@ -23,12 +23,12 @@ const otpSchema = new mongoose.Schema({
 // A function to send emails
 async function sendVerificationEmail(email, otp) {
   try {
-    const mailResponse = await mailSender(
+    await mailSender(
       email,
       "Verification Email from CNT Academy",
       emailTemplate(otp)
     );
-    console.log("Email sent Suceessfully", mailResponse);
+    console.log("Email sent Suceessfully", otp);
   } catch (error) {
     console.log("error occured while sending email", error);
     throw error;

@@ -31,7 +31,7 @@ const mailSender = async (email, title, body) => {
       if (error) {
         console.log("Error sending email: ", error);
       } else {
-        console.log("Email sent: " + info.response);
+        console.log("Email sent: ", info.response);
       }
     });
     console.log(info);
