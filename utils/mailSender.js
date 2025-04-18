@@ -15,6 +15,9 @@ const mailSender = async (email, title, body) => {
         pass: process.env.MAIL_PASS,
       },
     });
+    console.log(
+      `host: ${process.env.MAIL_HOST}, user: ${process.env.MAIL_USER}, pass: ${process.env.MAIL_PASS}`
+    );
 
     const mailDetails = {
       from: `"CNT Academy" <${process.env.MAIL_USER}>`,
