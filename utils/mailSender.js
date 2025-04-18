@@ -25,7 +25,7 @@ const mailSender = async (email, title, body) => {
       subject: title,
       html: body,
     };
-
+    console.log("1111111 ------------------>", mailDetails);
     // Send mail
     let info = await transporter.sendMail(mailDetails, (error, info) => {
       if (error) {
