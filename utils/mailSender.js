@@ -8,16 +8,13 @@ const mailSender = async (email, title, body) => {
     let transporter = nodemailer.createTransport({
       service: "gmail",
       host: process.env.MAIL_HOST,
-      port: 587, // Use port 465 for SSL
-      secure: false, // Use SSL
+      port: 465, // Use port 465 for SSL
+      secure: true, // Use SSL
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
       },
     });
-    console.log(
-      `host: ${process.env.MAIL_HOST}, user: ${process.env.MAIL_USER}, pass: ${process.env.MAIL_PASS}`
-    );
 
     const mailDetails = {
       from: process.env.MAIL_USER,
@@ -25,7 +22,7 @@ const mailSender = async (email, title, body) => {
       subject: title,
       html: body,
     };
-    console.log("1111111 ------------------>", mailDetails);
+
     // Send mail
     let info = await transporter.sendMail(mailDetails, (error, info) => {
       if (error) {
@@ -53,8 +50,8 @@ const sendEmailWithAttachment = async (
     // Create transporter
     let transporter = nodemailer.createTransport({
       host: process.env.MAIL_HOST,
-      port: 587,
-      secure: false,
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
@@ -63,7 +60,7 @@ const sendEmailWithAttachment = async (
 
     // Send mail with attachment
     let info = await transporter.sendMail({
-      from: `${process.env.MAIL_USER}`,
+      from: process.env.MAIL_USER,
       to: email,
       subject: subject,
       html: body,
