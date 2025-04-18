@@ -27,9 +27,10 @@ const mailSender = async (email, title, body) => {
     };
 
     // Send mail
-    let info = transporter.sendMail(mailDetails, (error, info) => {
+    let info = await transporter.sendMail(mailDetails, (error, info) => {
       if (error) {
         console.log("Error sending email: ", error);
+        return;
       } else {
         console.log("Email sent: ", info.response);
       }
