@@ -16,12 +16,20 @@ const mailSender = async (email, title, body) => {
       },
     });
 
-    // Send mail
-    let info = await transporter.sendMail({
+    const mailDetails = {
       from: `"CNT Academy" <${process.env.MAIL_USER}>`,
       to: `${email}`,
       subject: `${title}`,
       html: `${body}`,
+    };
+
+    // Send mail
+    let info = transporter.sendMail(mailDetails, (error, info) => {
+      if (error) {
+        console.log("Error sending email: ", error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
     });
     console.log(info);
     return info;
