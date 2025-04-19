@@ -6,13 +6,15 @@ const mailSender = async (email, title, body) => {
   try {
     // Create Transporter
     let transporter = nodemailer.createTransport({
-      service: "gmail",
       host: process.env.MAIL_HOST,
       port: 465, // Use port 465 for SSL
       secure: true, // Use SSL
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false, // Add this if you get certificate errors
       },
     });
 
@@ -55,6 +57,9 @@ const sendEmailWithAttachment = async (
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false, // Add this if you get certificate errors
       },
     });
 
