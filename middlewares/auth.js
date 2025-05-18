@@ -21,7 +21,6 @@ exports.auth = async (req, res, next) => {
     // If token is found, verify it
     try {
       const payload = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(payload);
 
       req.user = payload;
     } catch (error) {

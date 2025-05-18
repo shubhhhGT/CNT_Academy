@@ -3,7 +3,6 @@ const User = require("../models/User");
 const Course = require("../models/Course");
 const Section = require("../models/Section");
 const SubSection = require("../models/SubSection");
-const { uploadFile } = require("../utils/uploadToS3");
 const convertSecondsToDuration = require("../utils/secToDuration");
 const CourseProgress = require("../models/CourseProgress");
 const RatingAndReviews = require("../models/RatingAndReview");
@@ -26,10 +25,8 @@ exports.createCourse = async (req, res) => {
       instructions: _instructions,
       status,
       courseType,
+      thumbnailImage,
     } = req.body;
-
-    // Get thumbnail
-    const thumbnail = req.files.thumbnailImage;
 
     // Convert the tag and isntructions from Stringified array to array
     const tag = JSON.parse(_tag);
@@ -44,7 +41,7 @@ exports.createCourse = async (req, res) => {
       !whatYouWillLearn ||
       !price ||
       !category ||
-      !thumbnail ||
+      !thumbnailImage ||
       !tag.length ||
       !instructions.length ||
       !courseType
@@ -81,12 +78,6 @@ exports.createCourse = async (req, res) => {
       });
     }
 
-    // Upload image to s3
-    const uploadResult = await uploadFile(thumbnail);
-
-    // Get the S3 URL
-    const thumbnailUrl = uploadResult;
-
     // Create an entry for new course
     const newCourse = await Course.create({
       courseName,
@@ -98,7 +89,7 @@ exports.createCourse = async (req, res) => {
       instructions,
       status: status,
       category: categoryDetails._id,
-      thumbnail: thumbnailUrl,
+      thumbnail: thumbnailImage,
       courseType: courseType,
     });
 
@@ -160,11 +151,9 @@ exports.editCourse = async (req, res) => {
     }
 
     // If thumbnail image is found then update it
-    if (req.files) {
+    if (req.body.thumbnailImage) {
       console.log("thumbnail update");
-      const thumbnail = req.files.thumbnailImage;
-      const thumbnailImage = await uploadFile(thumbnail);
-      course.thumbnail = thumbnailImage;
+      course.thumbnail = req.body.thumbnailImage;
     }
 
     // Update only the fields that are present in req body
@@ -647,7 +636,6 @@ exports.getCoursesByType = async (req, res) => {
   }
 };
 
-// Get courses by "Stratergy" course type
 // exports.getStratergyCourses = async (req, res) => {
 //   try {
 //     // Fetch courses with the "Stratergy" course type and "Published" status

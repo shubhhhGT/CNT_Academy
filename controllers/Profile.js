@@ -21,16 +21,6 @@ exports.updateProfile = async (req, res) => {
     // get user ID
     const id = req.user.id;
 
-    // validation
-    // if (!contactNumber || !gender || !id){
-    //     return res.status(400).json(
-    //         {
-    //             success: false,
-    //             message: "Please enter all details",
-    //         }
-    //     )
-    // }
-
     // FInd profile
     const userDetails = await User.findById(id);
     const userProfile = userDetails.additionalDetails;
@@ -42,15 +32,6 @@ exports.updateProfile = async (req, res) => {
     });
     await user.save();
 
-    // Update Profile
-    // const updatedProfile = await Profile.findByIdAndUpdate(
-    //     profileDetails,
-    //     {gender: gender,
-    //     dateOfBirth: dateOfBirth,
-    //     about: about,
-    //     contactNumber: contactNumber},
-    //     {new: true}
-    // )
     profileDetails.dateOfBirth = dateOfBirth;
     profileDetails.gender = gender;
     profileDetails.about = about;
@@ -150,13 +131,12 @@ exports.updateProfilePicture = async (req, res) => {
   try {
     // get userID
     const userId = req.user.id;
-    const profilePicture = req.files.profilePicture;
-    const image = await uploadFile(profilePicture);
+    const image = req.body.profilePicture;
 
     // Update prfile pic of user
     const updatedPicture = await User.findByIdAndUpdate(
       { _id: userId },
-      { image: image },
+      { image },
       { new: true }
     );
 

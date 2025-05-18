@@ -1,112 +1,86 @@
 const SubSection = require("../models/SubSection");
 const Section = require("../models/Section");
-const { uploadFile } = require("../utils/uploadToS3");
-const getVideoDurationFromS3 = require("../utils/getVideoDurationFromS3");
 require("dotenv").config();
 
 // Create subsection
 exports.createSubsection = async (req, res) => {
   try {
-    // Fetch data from req body
-    const { sectionId, title, description, duration } = req.body;
+    const { sectionId, title, description, duration, videoUrl } = req.body;
 
-    // Extract video
-    const video = req.files.video;
-
-    // validation
-    if (!sectionId || !title || !description || !video || !duration) {
+    if (!sectionId || !title || !description || !videoUrl || !duration) {
       return res.status(400).json({
         success: false,
-        message: "please enter all deatils before proceeding",
+        message: "Please provide all required fields",
       });
     }
 
-    // Upload to s3
-    const videoUrl = await uploadFile(video);
-
-    // create subsection
-    const subSectionDeails = await SubSection.create({
-      title: title,
-      timeDuration: duration || 6,
-      description: description,
-      videoUrl: videoUrl,
+    const subSectionDetails = await SubSection.create({
+      title,
+      timeDuration: duration,
+      description,
+      videoUrl,
     });
 
-    // update section with sub section data
     const updatedSection = await Section.findByIdAndUpdate(
       { _id: sectionId },
-      {
-        $push: {
-          subSection: subSectionDeails._id,
-        },
-      },
+      { $push: { subSection: subSectionDetails._id } },
       { new: true }
     ).populate("subSection");
-    console.log(updatedSection);
 
-    // Retun response
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       message: "Subsection created successfully",
       data: updatedSection,
     });
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({
+    console.error("Create subsection error:", error);
+    res.status(500).json({
       success: false,
-      message: "Error occured while creating subsection, please try again",
+      message: "Error creating subsection",
     });
   }
 };
 
 exports.updateSubSection = async (req, res) => {
   try {
-    // Fetch data to be updated
-    const { subSectionId, title, description, sectionId, duration } = req.body;
+    const { subSectionId, title, description, sectionId, duration, videoUrl } =
+      req.body;
 
     const subSection = await SubSection.findById(subSectionId);
     if (!subSection) {
       return res.status(404).json({
         success: false,
-        message: "sub section not found",
+        message: "Subsection not found",
       });
     }
 
-    if (title !== undefined) {
-      subSection.title = title;
-    }
+    // Update fields if provided
+    if (title !== undefined) subSection.title = title;
+    if (description !== undefined) subSection.description = description;
 
-    if (description !== undefined) {
-      subSection.description = description;
-    }
-
-    if (req.files && req.files.video !== null) {
-      const video = req.files.video;
-      const videoUrl = await uploadFile(video);
-
+    // If new video is provided via URL
+    if (videoUrl) {
       subSection.videoUrl = videoUrl;
-      subSection.timeDuration = duration || 6;
+      subSection.timeDuration = duration || subSection.timeDuration || 6;
     }
 
     await subSection.save();
 
-    // update Data
-    const updatedSubsection = await Section.findById(sectionId).populate(
+    // Fetch updated section with all subsections
+    const updatedSection = await Section.findById(sectionId).populate(
       "subSection"
     );
-    console.log("updated Subsection Details", updatedSubsection);
 
-    // Return response
     return res.status(200).json({
       success: true,
       message: "Subsection updated successfully",
-      data: updatedSubsection,
+      data: updatedSection,
     });
   } catch (error) {
-    console.log(error);
+    console.error("Update subsection error:", error);
     return res.status(500).json({
       success: false,
-      message: "Error occured while updating subsection",
+      message: "Error occurred while updating subsection",
     });
   }
 };
