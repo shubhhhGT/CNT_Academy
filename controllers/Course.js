@@ -802,3 +802,67 @@ exports.getStratergyCourses = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
+exports.getCoursesByTags = async (req, res) => {
+  try {
+    const tagsQuery = req.query.tags;
+
+    if (!tagsQuery) {
+      return res.status(400).json({
+        success: false,
+        message: "Tags query is required",
+      });
+    }
+
+    const tagsArray = tagsQuery.split(",").map((tag) => tag.trim());
+
+    const courses = await Course.find({
+      tag: { $in: tagsArray },
+      status: "Published", // optional: filter published only
+    })
+      .populate("instructor", "firstName lastName")
+      .populate("category", "name")
+      .select("-ratingAndReviews -courseContent");
+
+    res.status(200).json({
+      success: true,
+      data: courses,
+    });
+  } catch (err) {
+    console.error("Error fetching courses by tags:", err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch courses",
+    });
+  }
+};
+
+exports.getCoursesByCategories = async (req, res) => {
+  try {
+    const { categories } = req.body;
+
+    if (!categories || !Array.isArray(categories) || categories.length === 0) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Categories are required." });
+    }
+
+    // Find category ObjectIds for the given category names
+    const matchedCategories = await Category.find({
+      name: { $in: categories },
+    }).select("_id");
+
+    const categoryIds = matchedCategories.map((cat) => cat._id);
+
+    const courses = await Course.find({ category: { $in: categoryIds } })
+      .populate("instructor", "firstName lastName")
+      .exec();
+
+    res.status(200).json({ success: true, data: courses });
+  } catch (err) {
+    console.error("Error fetching courses by categories", err);
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to fetch courses." });
+  }
+};

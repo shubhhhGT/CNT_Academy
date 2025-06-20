@@ -17,6 +17,11 @@ const courseroutes = require("./routes/Course");
 const contactUsRoute = require("./routes/Contact");
 const cartRoutes = require("./routes/cart");
 const uploadRoutes = require("./routes/uploads");
+const qnaRoutes = require("./routes/QnA");
+const testimonialRoutes = require("./routes/Testimonials");
+const blogRoutes = require("./routes/Blog");
+const eventRoutes = require("./routes/Event");
+const newsletterRoutes = require("./routes/Newsletter");
 
 const PORT = process.env.PORT || 4001;
 
@@ -98,6 +103,11 @@ app.use("/api/v1/course", courseroutes);
 app.use("/api/v1/reach", contactUsRoute);
 app.use("/api/v1/course", cartRoutes);
 app.use("/api/v1/upload", uploadRoutes);
+app.use("/api/v1/qna", qnaRoutes);
+app.use("/api/v1/testimonial", testimonialRoutes);
+app.use("/api/v1/blog", blogRoutes);
+app.use("/api/v1/event", eventRoutes);
+app.use("/api/v1/newsletter", newsletterRoutes);
 
 // Default route
 app.get("/", (req, res) => {

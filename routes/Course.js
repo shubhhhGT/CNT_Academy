@@ -15,6 +15,8 @@ const {
   getAllBookmarks,
   getCoursesByType,
   getStratergyCourses,
+  getCoursesByTags,
+  getCoursesByCategories,
 } = require("../controllers/Course");
 
 // Importimg categories controller
@@ -87,6 +89,10 @@ router.get("/getCoursesByType/:courseType", getCoursesByType);
 router.get("/getCoursesByStratergy", getStratergyCourses);
 // generate certificate
 router.post("/generate-certificate", auth, generateAndEmailCertificate);
+// get courses by tags
+router.get("/getCoursesByTags", getCoursesByTags);
+// get courses by categories
+router.post("/get-courses-by-categories", getCoursesByCategories);
 
 // ******************************* Category routes (Only by Admin) *******************************
 router.post("/createCategory", auth, isAdmin, createCategory);
