@@ -17,6 +17,7 @@ const {
   getStratergyCourses,
   getCoursesByTags,
   getCoursesByCategories,
+  getStatsData,
 } = require("../controllers/Course");
 
 // Importimg categories controller
@@ -93,6 +94,8 @@ router.post("/generate-certificate", auth, generateAndEmailCertificate);
 router.get("/getCoursesByTags", getCoursesByTags);
 // get courses by categories
 router.post("/get-courses-by-categories", getCoursesByCategories);
+// get stats to display on about page
+router.get("/getStatsData", getStatsData);
 
 // ******************************* Category routes (Only by Admin) *******************************
 router.post("/createCategory", auth, isAdmin, createCategory);

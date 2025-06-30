@@ -22,6 +22,8 @@ const testimonialRoutes = require("./routes/Testimonials");
 const blogRoutes = require("./routes/Blog");
 const eventRoutes = require("./routes/Event");
 const newsletterRoutes = require("./routes/Newsletter");
+const couponRoutes = require("./routes/Coupon");
+const invoiceRoutes = require("./routes/Invoice");
 
 const PORT = process.env.PORT || 4001;
 
@@ -108,6 +110,8 @@ app.use("/api/v1/testimonial", testimonialRoutes);
 app.use("/api/v1/blog", blogRoutes);
 app.use("/api/v1/event", eventRoutes);
 app.use("/api/v1/newsletter", newsletterRoutes);
+app.use("/api/v1/coupon", couponRoutes);
+app.use("/api/v1/invoice", invoiceRoutes);
 
 // Default route
 app.get("/", (req, res) => {

@@ -188,6 +188,7 @@ exports.login = async (req, res) => {
         email: existingUser.email,
         id: existingUser._id,
         accountType: existingUser.accountType,
+        name: `${existingUser.firstName} ${existingUser.lastName}`,
       };
       // Give token
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
