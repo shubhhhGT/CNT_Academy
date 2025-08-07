@@ -2,6 +2,10 @@
 const Profile = require("../models/Profile");
 const User = require("../models/User");
 const Course = require("../models/Course");
+const Testimonial = require("../models/Testimonial");
+const RatingAndReview = require("../models/RatingAndReview");
+const NewsletterSubscriber = require("../models/Newsletter");
+const ArchivedUser = require("../models/ArchivedUser");
 const { uploadFile } = require("../utils/uploadToS3");
 const convertSecondsToDuration = require("../utils/secToDuration");
 const CourseProgress = require("../models/CourseProgress");
@@ -61,44 +65,75 @@ exports.updateProfile = async (req, res) => {
 // Delete account
 exports.deleteAccount = async (req, res) => {
   try {
-    // Get ID
     const id = req.user.id;
+    const { reason } = req.body;
 
-    // Validate ID
+    if (!reason) {
+      return res.status(500).json({
+        success: false,
+        message: "Please enter the reason to delete the account",
+      });
+    }
+
+    // Validate user exists
     const userDetails = await User.findById(id);
     if (!userDetails) {
       return res.status(404).json({
         success: false,
-        message: "user not found",
+        message: "User not found",
       });
     }
 
-    // delete profile
-    await Profile.findByIdAndDelete({ _id: userDetails.additionalDetails });
+    // Get user email before deletion for newsletter cleanup
+    const userEmail = userDetails.email;
 
-    // TODO: Unenroll user from all enrolled courses
-    // get courses enrolled by user
+    // Create archived user record
+    const archivedUser = new ArchivedUser({
+      originalId: userDetails._id,
+      firstName: userDetails.firstName,
+      lastName: userDetails.lastName,
+      email: userDetails.email,
+      accountType: userDetails.accountType,
+      courses: userDetails.courses,
+      image: userDetails.image,
+      reason: reason,
+    });
+    await archivedUser.save();
+
+    // Delete profile
+    await Profile.findByIdAndDelete(userDetails.additionalDetails);
+
+    // Unenroll user from all courses
     for (const courseId of userDetails.courses) {
       await Course.findByIdAndUpdate(
         courseId,
-        { $pull: { studentsEntrolled: id } },
+        { $pull: { studentsEnrolled: id } },
         { new: true }
       );
     }
 
-    // delete user
+    // Delete user testimonials
+    await Testimonial.deleteMany({ user: id });
+
+    // Delete user ratings and reviews
+    await RatingAndReview.deleteMany({ user: id });
+
+    // Unsubscribe from newsletter
+    await NewsletterSubscriber.findOneAndDelete({ email: userEmail });
+
+    // Finally delete user
     await User.findByIdAndDelete(id);
 
-    // return response
     return res.status(200).json({
       success: true,
-      message: "User deleted successfully",
+      message: "User account and all associated data deleted successfully",
     });
   } catch (error) {
-    console.log(error);
+    console.error("Error deleting account:", error);
     return res.status(500).json({
       success: false,
-      message: "Error occured while deleting profile, please try again",
+      message: "Failed to delete account. Please try again.",
+      error: error.message,
     });
   }
 };
