@@ -70,7 +70,7 @@ exports.capturePayment = async (req, res) => {
 
   // Create Razorpay order
   const options = {
-    amount: totalAmount * 100,
+    amount: Math.round(totalAmount * 100),
     currency: "INR",
     receipt: `receipt_${Date.now()}`,
   };
