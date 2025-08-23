@@ -1260,7 +1260,7 @@ exports.invoiceTemplate = ({
               text-align: left;
             "
           >
-            ${rate}
+            ${rate.toFixed(2)}
           </p>
         </td>
         <td
@@ -1347,7 +1347,7 @@ exports.invoiceTemplate = ({
               text-align: right;
             "
           >
-            ${rate}
+            ${rate.toFixed(2)}
           </p>
         </td>
       </tr>
@@ -1453,7 +1453,7 @@ exports.invoiceTemplate = ({
               text-align: left;
             "
           >
-            ${rate}
+            ${rate.toFixed(2)}
           </p>
           <p
             class="s2"
@@ -1545,7 +1545,7 @@ exports.invoiceTemplate = ({
               text-align: left;
             "
           >
-            ₹${rate}
+            ₹${rate.toFixed(2)}
           </p>
           <p
             class="s11"
@@ -1557,7 +1557,7 @@ exports.invoiceTemplate = ({
               text-align: left;
             "
           >
-            (-) ${rate}
+            (-) ${rate.toFixed(2)}
           </p>
         </td>
       </tr>
