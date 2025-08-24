@@ -286,7 +286,7 @@ exports.invoiceTemplate = ({
               text-align: left;
             "
           >
-            GSTIN 19AAZCA2194D1Z9 9147413931
+            GSTIN 19AAZCA2194D1Z9
           </p>
           <p
             style="
