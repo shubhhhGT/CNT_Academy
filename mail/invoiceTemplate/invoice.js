@@ -16,7 +16,8 @@ exports.invoiceTemplate = ({
   amountInWords,
   orderId,
 }) =>
-  `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  `
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -173,7 +174,13 @@ exports.invoiceTemplate = ({
   </head>
   <body>
     <table
-      style="border-collapse: collapse; margin-left: 15.975pt; margin-top: 15.975pt; margin-right: 15.975pt; margin-bottom: 15.975pt"
+      style="
+        border-collapse: collapse;
+        margin-left: 15.975pt;
+        margin-top: 15.975pt;
+        margin-right: 15.975pt;
+        margin-bottom: 15.975pt;
+      "
       cellspacing="0"
     >
       <tr style="height: 107pt">
@@ -193,7 +200,7 @@ exports.invoiceTemplate = ({
           colspan="2"
         >
           <p style="text-indent: 0pt; text-align: left"><br /></p>
-                    <p style="text-indent: 0pt; text-align: left">
+          <p style="text-indent: 0pt; text-align: left">
             <span
               ><table border="0" cellspacing="0" cellpadding="0">
                 <tr>
@@ -334,7 +341,6 @@ exports.invoiceTemplate = ({
           "
           colspan="2"
         >
-
           <p
             class="s5"
             style="
@@ -381,7 +387,7 @@ exports.invoiceTemplate = ({
               text-align: left;
             "
           >
-           Terms
+            Terms
           </p>
           <p
             class="s5"
@@ -622,7 +628,7 @@ exports.invoiceTemplate = ({
               text-align: left;
             "
           >
-           ${addressLine1}
+            ${addressLine1}
           </p>
         </td>
       </tr>
@@ -649,7 +655,7 @@ exports.invoiceTemplate = ({
               text-align: left;
             "
           >
-           ${addressLine1}
+            ${addressLine1}
           </p>
         </td>
         <td
@@ -859,7 +865,7 @@ exports.invoiceTemplate = ({
               text-align: left;
             "
           >
-           ${courseName}
+            ${courseName}
           </p>
         </td>
       </tr>
@@ -1202,7 +1208,7 @@ exports.invoiceTemplate = ({
               text-align: left;
             "
           >
-            ${courseId}
+            999294
           </p>
         </td>
         <td
@@ -1231,7 +1237,7 @@ exports.invoiceTemplate = ({
               text-align: right;
             "
           >
-           ${quantity}.00
+            ${quantity}.00
           </p>
         </td>
         <td
@@ -1380,7 +1386,7 @@ exports.invoiceTemplate = ({
             class="s9"
             style="padding-left: 5pt; text-indent: 0pt; text-align: left"
           >
-           ${amountInWords}
+            ${amountInWords}
           </p>
         </td>
         <td
@@ -1408,16 +1414,16 @@ exports.invoiceTemplate = ({
             class="s2"
             style="
               padding-top: 3pt;
-              padding-right: 31pt;
+              padding-left: 37pt;
               text-indent: 0pt;
-              text-align: right;
+              text-align: left;
             "
           >
             Sub Total
           </p>
           <p
             class="s10"
-            style="padding-right: 29pt; text-indent: 0pt; text-align: right"
+            style="padding-left: 37pt; text-indent: 0pt; text-align: left"
           >
             (Tax Inclusive)
           </p>
@@ -1459,7 +1465,7 @@ exports.invoiceTemplate = ({
             class="s2"
             style="
               padding-top: 7pt;
-              padding-left: 32pt;
+              padding-left: 27pt;
               text-indent: 0pt;
               text-align: left;
             "
@@ -1540,24 +1546,24 @@ exports.invoiceTemplate = ({
             class="s6"
             style="
               padding-top: 1pt;
-              padding-left: 22pt;
+              padding-left: 27pt;
               text-indent: 0pt;
               text-align: left;
             "
           >
-            ₹${rate.toFixed(2)}
+            ${rate.toFixed(2)}
           </p>
           <p
             class="s11"
             style="
               padding-top: 3pt;
-              padding-left: 18pt;
+              padding-left: 27pt;
               text-indent: 0pt;
               line-height: 8pt;
               text-align: left;
             "
           >
-            (-) ${rate.toFixed(2)}
+            (-)${rate.toFixed(2)}
           </p>
         </td>
       </tr>
@@ -1629,12 +1635,12 @@ exports.invoiceTemplate = ({
             class="s8"
             style="
               padding-top: 2pt;
-              padding-right: 5pt;
+              padding-right: 19pt;
               text-indent: 0pt;
               text-align: right;
             "
           >
-            ₹0.00
+            0.00
           </p>
         </td>
       </tr>
@@ -1695,6 +1701,14 @@ exports.invoiceTemplate = ({
           rowspan="3"
         >
           <p style="text-indent: 0pt; text-align: left"><br /></p>
+          <p>
+            <img
+              src="https://chartntrade-backend-bucket-1.s3.ap-south-1.amazonaws.com/CNT_Academy/AHazara.png"
+              width="150pt"
+              height="81pt"
+              style="padding-left: 45pt"
+            />
+          </p>
           <p
             class="s2"
             style="
@@ -1793,7 +1807,7 @@ exports.invoiceTemplate = ({
             class="s2"
             style="
               padding-left: 5pt;
-              padding-right: 260pt;
+              padding-right: 360pt;
               text-indent: 0pt;
               text-align: left;
             "
@@ -1802,219 +1816,139 @@ exports.invoiceTemplate = ({
             conditions. Please review them carefully.
           </p>
           <p style="text-indent: 0pt; text-align: left"><br /></p>
-          <ol id="l1">
-            <li data-list-text="2.">
-              <p
-                class="s2"
-                style="padding-left: 13pt; text-indent: -8pt; text-align: left"
-              >
-                Services Provided
-              </p>
-              <p style="text-indent: 0pt; text-align: left"><br /></p>
-              <p
-                class="s2"
-                style="
-                  padding-left: 5pt;
-                  padding-right: 260pt;
-                  text-indent: 0pt;
-                  text-align: left;
-                "
-              >
-                CNT Academy offers educational courses related to financial
-                markets, investment strategies, and related topics. Our services
-                are intended solely for educational purposes and do not
-                constitute financial advice or recommendations.
-              </p>
-              <p style="text-indent: 0pt; text-align: left"><br /></p>
-            </li>
-            <li data-list-text="3.">
-              <p
-                class="s2"
-                style="padding-left: 13pt; text-indent: -8pt; text-align: left"
-              >
-                Payment Terms
-              </p>
-              <p style="text-indent: 0pt; text-align: left"><br /></p>
-              <p
-                class="s2"
-                style="
-                  padding-left: 5pt;
-                  padding-right: 260pt;
-                  text-indent: 0pt;
-                  text-align: left;
-                "
-              >
-                Fees: All course fees must be paid in full at the time of
-                enrollment. Fees are non-refundable except as outlined in our
-                Refund Policy.
-              </p>
-              <p style="text-indent: 0pt; text-align: left"><br /></p>
-              <p
-                class="s2"
-                style="
-                  padding-left: 5pt;
-                  padding-right: 230pt;
-                  text-indent: 0pt;
-                  text-align: left;
-                "
-              >
-                Invoices: An invoice will be issued upon receipt of payment,
-                detailing the services purchased.
-              </p>
-              <p style="text-indent: 0pt; text-align: left"><br /></p>
-            </li>
-            <li data-list-text="4.">
-              <p
-                class="s2"
-                style="padding-left: 13pt; text-indent: -8pt; text-align: left"
-              >
-                Compliance with SEBI Regulations
-              </p>
-            </li>
-          </ol>
-          <p style="text-indent: 0pt; text-align: left"><br /></p>
-          <p
-            class="s2"
-            style="
-              padding-left: 5pt;
-              padding-right: 260pt;
-              text-indent: 0pt;
-              text-align: left;
-            "
-          >
-            In accordance with the Securities and Exchange Board of India (SEBI)
-            circular issued on January 29, 2025, CNT Academy adheres to the
-            following guidelines:
-          </p>
-          <p style="text-indent: 0pt; text-align: left"><br /></p>
-          <p
-            class="s2"
-            style="
-              padding-left: 5pt;
-              padding-right: 260pt;
-              text-indent: 0pt;
-              text-align: left;
-            "
-          >
-            Use of Market Data: Educational content will not include market
-            price data from the preceding three months. This measure ensures
-            that our courses remain purely educational and do not provide
-            real-time trading tips or investment advice.
-          </p>
-          <p style="text-indent: 0pt; text-align: left"><br /></p>
-          <p
-            class="s2"
-            style="
-              padding-left: 5pt;
-              padding-right: 260pt;
-              text-indent: 0pt;
-              text-align: left;
-            "
-          >
-            No Investment Advice: Our instructors and materials do not offer
-            investment advice or make performance claims. The content is
-            designed to enhance your understanding of financial markets without
-            recommending specific investment actions.
-          </p>
+          <!-- Side-by-side ordered lists -->
+          <div style="display: flex; justify-content: space-between; gap: 20pt">
+            <!-- First column -->
+            <ol id="l1" style="flex: 1; margin: 0; padding-right: 20pt">
+              <li data-list-text="2.">
+                <p class="s2" style="padding-left: 13pt; text-indent: -8pt">
+                  Services Provided
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+                <p class="s2" style="padding-left: 5pt; text-align: justify">
+                  CNT Academy offers educational courses related to financial
+                  markets, investment strategies, and related topics. Our
+                  services are intended solely for educational purposes and do
+                  not constitute financial advice or recommendations.
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+              </li>
 
+              <li data-list-text="3.">
+                <p class="s2" style="padding-left: 13pt; text-indent: -8pt">
+                  Payment Terms
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+                <p class="s2" style="padding-left: 5pt; text-align: justify">
+                  Fees: All course fees must be paid in full at the time of
+                  enrollment. Fees are non-refundable except as outlined in our
+                  Refund Policy.
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+                <p class="s2" style="padding-left: 5pt; text-align: justify">
+                  Invoices: An invoice will be issued upon receipt of payment,
+                  detailing the services purchased.
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+              </li>
 
-          <!-- Adding new -->
-           <p style="text-indent: 0pt; text-align: left"><br /></p>
-      <ol id="l2">
-        <li data-list-text="5.">
-          <p class="s2"
-                style="padding-left: 13pt; text-indent: -8pt; text-align: left">
-            Intellectual Property
-          </p>
-          <p style="text-indent: 0pt; text-align: left"><br /></p>
-          <p class="s2"
-            style="
-              padding-left: 5pt;
-              padding-right: 260pt;
-              text-indent: 0pt;
-              text-align: left;
-            ">
-            All course materials, including but not limited to videos, texts,
-            and graphics, are the intellectual property of CNT Academy and are
-            protected by copyright laws. Unauthorized reproduction or
-            distribution is prohibited.
-          </p>
-          <p style="text-indent: 0pt; text-align: left"><br /></p>
-        </li>
-        <li data-list-text="6.">
-          <p class="s2"
-                style="padding-left: 13pt; text-indent: -8pt; text-align: left">
-            Limitation of Liability
-          </p>
-          <p style="text-indent: 0pt; text-align: left"><br /></p>
-          <p class="s2"
-            style="
-              padding-left: 5pt;
-              padding-right: 260pt;
-              text-indent: 0pt;
-              text-align: left;
-            ">
-            CNT Academy and Agnostic Edufin Pvt Ltd are not liable for any
-            direct, indirect, incidental, or consequential damages arising from
-            the use of our educational materials. Enrollment does not guarantee
-            success in financial markets.
-          </p>
-          <p style="text-indent: 0pt; text-align: left"><br /></p>
-        </li>
-        <li data-list-text="7.">
-          <p class="s2"
-                style="padding-left: 13pt; text-indent: -8pt; text-align: left">
-            Amendments
-          </p>
-          <p style="text-indent: 0pt; text-align: left"><br /></p>
-          <p class="s2"
-            style="
-              padding-left: 5pt;
-              padding-right: 260pt;
-              text-indent: 0pt;
-              text-align: left;
-            ">
-            We reserve the right to modify these terms and conditions at any
-            time. Changes will be communicated through our official channels and
-            will take effect immediately upon posting.
-          </p>
-          <p style="text-indent: 0pt; text-align: left"><br /></p>
-        </li>
-        <li data-list-text="8.">
-          <p class="s2"
-                style="padding-left: 13pt; text-indent: -8pt; text-align: left">
-            Governing Law
-          </p>
-        </li>
-      </ol>
-      <p style="text-indent: 0pt; text-align: left"><br /></p>
-      <p class="s2"
-            style="
-              padding-left: 5pt;
-              padding-right: 260pt;
-              text-indent: 0pt;
-              text-align: left;
-            ">
-        These terms and conditions are governed by the laws of India. Any
-        disputes arising shall be subject to the exclusive jurisdiction of the
-        courts in Kolkata, West Bengal.
-      </p>
-      <p style="text-indent: 0pt; text-align: left"><br /></p>
-      <p class="s2"
-            style="
-              padding-left: 5pt;
-              padding-right: 260pt;
-              text-indent: 0pt;
-              text-align: left;
-            ">
-        By enrolling in CNT Academy courses, you acknowledge that you have read,
-        understood, and agreed to these terms and conditions.
-      </p>
-    </table>
-    <p style="text-indent: 0pt; text-align: left" />
+              <li data-list-text="4.">
+                <p class="s2" style="padding-left: 13pt; text-indent: -8pt">
+                  Compliance with SEBI Regulations
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+                <p class="s2" style="padding-left: 5pt; text-align: justify">
+                  In accordance with the Securities and Exchange Board of India
+                  (SEBI) circular issued on January 29, 2025, CNT Academy
+                  adheres to the following guidelines:
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+                <p class="s2" style="padding-left: 5pt; text-align: justify">
+                  Use of Market Data: Educational content will not include
+                  market price data from the preceding three months. This
+                  measure ensures that our courses remain purely educational and
+                  do not provide real-time trading tips or investment advice.
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+                <p class="s2" style="padding-left: 5pt; text-align: justify">
+                  No Investment Advice: Our instructors and materials do not
+                  offer investment advice or make performance claims. The
+                  content is designed to enhance your understanding of financial
+                  markets without recommending specific investment actions.
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+              </li>
+            </ol>
+
+            <!-- Second column -->
+            <ol
+              id="l2"
+              style="flex: 1; margin: 0; padding-left: 20pt; padding-right: 5pt"
+            >
+              <li data-list-text="5.">
+                <p class="s2" style="padding-left: 13pt; text-indent: -8pt">
+                  Intellectual Property
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+                <p class="s2" style="padding-left: 5pt; text-align: justify">
+                  All course materials, including but not limited to videos,
+                  texts, and graphics, are the intellectual property of CNT
+                  Academy and are protected by copyright laws. Unauthorized
+                  reproduction or distribution is prohibited.
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+              </li>
+
+              <li data-list-text="6.">
+                <p class="s2" style="padding-left: 13pt; text-indent: -8pt">
+                  Limitation of Liability
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+                <p class="s2" style="padding-left: 5pt; text-align: justify">
+                  CNT Academy and Agnostic Edufin Pvt Ltd are not liable for any
+                  direct, indirect, incidental, or consequential damages arising
+                  from the use of our educational materials. Enrollment does not
+                  guarantee success in financial markets.
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+              </li>
+
+              <li data-list-text="7.">
+                <p class="s2" style="padding-left: 13pt; text-indent: -8pt">
+                  Amendments
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+                <p class="s2" style="padding-left: 5pt; text-align: justify">
+                  We reserve the right to modify these terms and conditions at
+                  any time. Changes will be communicated through our official
+                  channels and will take effect immediately upon posting.
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+              </li>
+
+              <li data-list-text="8.">
+                <p class="s2" style="padding-left: 13pt; text-indent: -8pt">
+                  Governing Law
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+                <p class="s2" style="padding-left: 5pt; text-align: justify">
+                  These terms and conditions are governed by the laws of India.
+                  Any disputes arising shall be subject to the exclusive
+                  jurisdiction of the courts in Kolkata, West Bengal.
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+                <p class="s2" style="padding-left: 5pt; text-align: justify">
+                  By enrolling in CNT Academy courses, you acknowledge that you
+                  have read, understood, and agreed to these terms and
+                  conditions.
+                </p>
+                <p style="text-indent: 0pt; text-align: left"><br /></p>
+              </li>
+            </ol>
+          </div>
         </td>
       </tr>
     </table>
   </body>
 </html>
-    `;
+`;
