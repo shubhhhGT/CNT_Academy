@@ -1,4 +1,4 @@
-exports.invoiceTemplate = ({
+exports.westBengalInvoiceTemplate = ({
   invoiceNumber,
   invoiceDate,
   dueDate,
@@ -17,7 +17,7 @@ exports.invoiceTemplate = ({
   orderId,
 }) =>
   `
-  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -197,7 +197,7 @@ exports.invoiceTemplate = ({
             border-bottom-width: 1pt;
             border-bottom-color: #9e9e9e;
           "
-          colspan="2"
+          colspan="3"
         >
           <p style="text-indent: 0pt; text-align: left"><br /></p>
           <p style="text-indent: 0pt; text-align: left">
@@ -225,7 +225,7 @@ exports.invoiceTemplate = ({
             border-bottom-width: 1pt;
             border-bottom-color: #9e9e9e;
           "
-          colspan="3"
+          colspan="4"
         >
           <p
             class="s1"
@@ -339,7 +339,7 @@ exports.invoiceTemplate = ({
             border-bottom-width: 1pt;
             border-bottom-color: #9e9e9e;
           "
-          colspan="2"
+          colspan="3"
         >
           <p
             class="s5"
@@ -475,6 +475,7 @@ exports.invoiceTemplate = ({
             border-bottom-width: 1pt;
             border-bottom-color: #9e9e9e;
           "
+          colspan="2"
         >
           <p
             class="s5"
@@ -528,7 +529,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="4"
+          colspan="5"
           bgcolor="#F2F2F3"
         >
           <p
@@ -559,7 +560,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="4"
+          colspan="5"
           bgcolor="#F2F2F3"
         >
           <p
@@ -589,7 +590,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="4"
+          colspan="5"
         >
           <p
             class="s8"
@@ -617,7 +618,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="4"
+          colspan="5"
         >
           <p
             class="s2"
@@ -643,7 +644,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="4"
+          colspan="5"
         >
           <p
             class="s2"
@@ -668,7 +669,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="4"
+          colspan="5"
         >
           <p
             class="s2"
@@ -689,7 +690,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="4"
+          colspan="5"
         >
           <p
             class="s2"
@@ -714,7 +715,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="4"
+          colspan="5"
         >
           <p
             class="s2"
@@ -740,7 +741,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="4"
+          colspan="5"
         >
           <p
             class="s2"
@@ -765,7 +766,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="4"
+          colspan="5"
         >
           <p
             class="s2"
@@ -794,7 +795,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="4"
+          colspan="5"
         >
           <p
             class="s2"
@@ -821,7 +822,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="4"
+          colspan="5"
         >
           <p style="text-indent: 0pt; text-align: left"><br /></p>
         </td>
@@ -843,7 +844,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="8"
+          colspan="10"
         >
           <p
             class="s5"
@@ -1012,7 +1013,7 @@ exports.invoiceTemplate = ({
         </td>
         <td
           style="
-            width: 116pt;
+            width: 58pt;
             border-top-style: solid;
             border-top-width: 1pt;
             border-top-color: #9e9e9e;
@@ -1033,7 +1034,33 @@ exports.invoiceTemplate = ({
             class="s6"
             style="padding-top: 3pt; text-indent: 0pt; text-align: center"
           >
-            IGST
+            CGST
+          </p>
+        </td>
+        <td
+          style="
+            width: 58pt;
+            border-top-style: solid;
+            border-top-width: 1pt;
+            border-top-color: #9e9e9e;
+            border-left-style: solid;
+            border-left-width: 1pt;
+            border-left-color: #9e9e9e;
+            border-bottom-style: solid;
+            border-bottom-width: 1pt;
+            border-bottom-color: #9e9e9e;
+            border-right-style: solid;
+            border-right-width: 1pt;
+            border-right-color: #9e9e9e;
+          "
+          colspan="2"
+          bgcolor="#F2F2F3"
+        >
+          <p
+            class="s6"
+            style="padding-top: 3pt; text-indent: 0pt; text-align: center"
+          >
+            SGST
           </p>
         </td>
         <td
@@ -1069,7 +1096,7 @@ exports.invoiceTemplate = ({
       <tr style="height: 11pt">
         <td
           style="
-            width: 58pt;
+            width: 29pt;
             border-top-style: solid;
             border-top-width: 1pt;
             border-top-color: #9e9e9e;
@@ -1099,7 +1126,67 @@ exports.invoiceTemplate = ({
         </td>
         <td
           style="
-            width: 58pt;
+            width: 29pt;
+            border-top-style: solid;
+            border-top-width: 1pt;
+            border-top-color: #9e9e9e;
+            border-left-style: solid;
+            border-left-width: 1pt;
+            border-left-color: #9e9e9e;
+            border-bottom-style: solid;
+            border-bottom-width: 1pt;
+            border-bottom-color: #9e9e9e;
+            border-right-style: solid;
+            border-right-width: 1pt;
+            border-right-color: #9e9e9e;
+          "
+          bgcolor="#F2F2F3"
+        >
+          <p
+            class="s6"
+            style="
+              padding-right: 3pt;
+              text-indent: 0pt;
+              line-height: 9pt;
+              text-align: right;
+            "
+          >
+            Amt
+          </p>
+        </td>
+        <td
+          style="
+            width: 29pt;
+            border-top-style: solid;
+            border-top-width: 1pt;
+            border-top-color: #9e9e9e;
+            border-left-style: solid;
+            border-left-width: 1pt;
+            border-left-color: #9e9e9e;
+            border-bottom-style: solid;
+            border-bottom-width: 1pt;
+            border-bottom-color: #9e9e9e;
+            border-right-style: solid;
+            border-right-width: 1pt;
+            border-right-color: #9e9e9e;
+          "
+          bgcolor="#F2F2F3"
+        >
+          <p
+            class="s6"
+            style="
+              padding-right: 3pt;
+              text-indent: 0pt;
+              line-height: 9pt;
+              text-align: right;
+            "
+          >
+            %
+          </p>
+        </td>
+        <td
+          style="
+            width: 29pt;
             border-top-style: solid;
             border-top-width: 1pt;
             border-top-color: #9e9e9e;
@@ -1271,7 +1358,7 @@ exports.invoiceTemplate = ({
         </td>
         <td
           style="
-            width: 58pt;
+            width: 29pt;
             border-top-style: solid;
             border-top-width: 1pt;
             border-top-color: #9e9e9e;
@@ -1300,7 +1387,65 @@ exports.invoiceTemplate = ({
         </td>
         <td
           style="
-            width: 58pt;
+            width: 29pt;
+            border-top-style: solid;
+            border-top-width: 1pt;
+            border-top-color: #9e9e9e;
+            border-left-style: solid;
+            border-left-width: 1pt;
+            border-left-color: #9e9e9e;
+            border-bottom-style: solid;
+            border-bottom-width: 1pt;
+            border-bottom-color: #9e9e9e;
+            border-right-style: solid;
+            border-right-width: 1pt;
+            border-right-color: #9e9e9e;
+          "
+        >
+          <p
+            class="s2"
+            style="
+              padding-top: 1pt;
+              padding-right: 3pt;
+              text-indent: 0pt;
+              text-align: right;
+            "
+          >
+            ${gstAmount}
+          </p>
+        </td>
+        <td
+          style="
+            width: 29pt;
+            border-top-style: solid;
+            border-top-width: 1pt;
+            border-top-color: #9e9e9e;
+            border-left-style: solid;
+            border-left-width: 1pt;
+            border-left-color: #9e9e9e;
+            border-bottom-style: solid;
+            border-bottom-width: 1pt;
+            border-bottom-color: #9e9e9e;
+            border-right-style: solid;
+            border-right-width: 1pt;
+            border-right-color: #9e9e9e;
+          "
+        >
+          <p
+            class="s2"
+            style="
+              padding-top: 1pt;
+              padding-right: 3pt;
+              text-indent: 0pt;
+              text-align: right;
+            "
+          >
+            ${gstPercent}%
+          </p>
+        </td>
+        <td
+          style="
+            width: 29pt;
             border-top-style: solid;
             border-top-width: 1pt;
             border-top-color: #9e9e9e;
@@ -1409,6 +1554,7 @@ exports.invoiceTemplate = ({
             border-top-width: 1pt;
             border-top-color: #9e9e9e;
           "
+          colspan="3"
         >
           <p
             class="s2"
@@ -1436,7 +1582,18 @@ exports.invoiceTemplate = ({
               text-align: left;
             "
           >
-            IGST18 (${gstPercent}%)
+            CGST9 (${gstPercent}%)
+          </p>
+          <p
+            class="s2"
+            style="
+              padding-top: 3pt;
+              padding-left: 37pt;
+              text-indent: 0pt;
+              text-align: left;
+            "
+          >
+            SGST9 (${gstPercent}%)
           </p>
         </td>
         <td
@@ -1449,6 +1606,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
+          colspan="3"
         >
           <p
             class="s2"
@@ -1465,6 +1623,17 @@ exports.invoiceTemplate = ({
             class="s2"
             style="
               padding-top: 7pt;
+              padding-left: 27pt;
+              text-indent: 0pt;
+              text-align: left;
+            "
+          >
+            ${gstAmount}
+          </p>
+          <p
+            class="s2"
+            style="
+              padding-top: 2pt;
               padding-left: 27pt;
               text-indent: 0pt;
               text-align: left;
@@ -1509,7 +1678,7 @@ exports.invoiceTemplate = ({
         >
           <p style="text-indent: 0pt; text-align: left"><br /></p>
         </td>
-        <td style="width: 116pt">
+        <td style="width: 116pt" colspan="3">
           <p
             class="s6"
             style="
@@ -1607,6 +1776,7 @@ exports.invoiceTemplate = ({
             border-bottom-width: 1pt;
             border-bottom-color: #9e9e9e;
           "
+          colspan="3"
         >
           <p
             class="s8"
@@ -1630,6 +1800,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
+          colspan="2"
         >
           <p
             class="s8"
@@ -1697,7 +1868,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="3"
+          colspan="5"
           rowspan="3"
         >
           <p style="text-indent: 0pt; text-align: left"><br /></p>
@@ -1706,7 +1877,7 @@ exports.invoiceTemplate = ({
               src="https://chartntrade-backend-bucket-1.s3.ap-south-1.amazonaws.com/CNT_Academy/AHazara.png"
               width="150pt"
               height="81pt"
-              style="padding-left: 45pt"
+              style="padding-left: 50pt"
             />
           </p>
           <p
@@ -1789,7 +1960,7 @@ exports.invoiceTemplate = ({
             border-right-width: 1pt;
             border-right-color: #9e9e9e;
           "
-          colspan="8"
+          colspan="10"
         >
           <p
             class="s2"

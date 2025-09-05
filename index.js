@@ -48,6 +48,7 @@ app.use(
 );
 
 // Google OAuth login
+const webClient = new OAuth2Client(process.env.GOOGLE_WEB_CLIENT_ID);
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 app.post("/api/v1/auth/login/google/mobile", async (req, res) => {
@@ -69,6 +70,7 @@ app.post("/api/v1/auth/login/google/mobile", async (req, res) => {
       email: user.email,
       id: user._id,
       accountType: user.accountType,
+      name: `${user?.firstName} ${user?.lastName}`,
     };
 
     const jwtToken = jwt.sign(jwtPayload, process.env.JWT_SECRET, {
@@ -86,6 +88,45 @@ app.post("/api/v1/auth/login/google/mobile", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(401).json({ error: "Invalid Google Token" });
+  }
+});
+
+app.post("/api/v1/auth/login/google/web", async (req, res) => {
+  const { token } = req.body;
+
+  try {
+    // Verify Google token using web client ID
+    const ticket = await webClient.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_WEB_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+
+    // Authenticate or register the user
+    const { user, isNewUser } = await loginWithGoogle(payload);
+
+    const jwtPayload = {
+      email: user.email,
+      id: user._id,
+      accountType: user.accountType,
+      name: `${user?.firstName} ${user?.lastName}`,
+    };
+
+    const jwtToken = jwt.sign(jwtPayload, process.env.JWT_SECRET, {
+      expiresIn: "30d",
+    });
+
+    return res.json({
+      success: true,
+      message: "Logged in successfully",
+      token: jwtToken,
+      existingUser: user,
+      isNewUser,
+    });
+  } catch (error) {
+    console.error("Web login error:", error);
+    return res.status(401).json({ error: "Invalid Google Token" });
   }
 });
 

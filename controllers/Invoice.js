@@ -1,5 +1,8 @@
 const generatePdf = require("../utils/generatePdf");
 const { invoiceTemplate } = require("../mail/invoiceTemplate/invoice");
+const {
+  westBengalInvoiceTemplate,
+} = require("../mail/invoiceTemplate/westBengalInvoice");
 const Invoice = require("../models/Invoice");
 const { uploadFileToS3 } = require("../utils/uploadInvoiceToS3");
 const {
@@ -7,6 +10,7 @@ const {
   formatAmountInWords,
   getCurrentDate,
 } = require("../utils/invoiceUtils");
+const { generateInvoiceNumber } = require("../utils/generateInvoiceNumber");
 
 exports.downloadInvoice = async (invoiceData) => {
   try {
@@ -23,31 +27,56 @@ exports.downloadInvoice = async (invoiceData) => {
       customerName = "Unknown",
     } = invoiceData;
 
-    const invoiceNumber = Date.now().toString();
+    const combinedAddress =
+      `${placeOfSupply} ${addressLine1} ${addressLine2} ${addressLine3}`.toLowerCase();
+    const invoiceNumber = await generateInvoiceNumber();
     const invoiceDate = getCurrentDate();
     const dueDate = getCurrentDate();
-    const gstPercent = 18;
-    const gstAmount = calculateGstAmount(rate, quantity, gstPercent);
+    let gstPercent = 18;
+    let gstAmount = calculateGstAmount(rate, quantity, gstPercent);
     const amountInWords = formatAmountInWords(rate);
-
-    const html = invoiceTemplate({
-      invoiceNumber,
-      invoiceDate,
-      dueDate,
-      placeOfSupply,
-      customerName,
-      addressLine1,
-      addressLine2,
-      addressLine3,
-      courseName,
-      courseId,
-      quantity,
-      rate,
-      gstPercent,
-      gstAmount,
-      amountInWords,
-      orderId,
-    });
+    let html = null;
+    if (combinedAddress.includes("west bengal")) {
+      gstPercent = 9;
+      gstAmount = calculateGstAmount(rate, quantity, gstPercent);
+      html = westBengalInvoiceTemplate({
+        invoiceNumber,
+        invoiceDate,
+        dueDate,
+        placeOfSupply,
+        customerName,
+        addressLine1,
+        addressLine2,
+        addressLine3,
+        courseName,
+        courseId,
+        quantity,
+        rate,
+        gstPercent,
+        gstAmount,
+        amountInWords,
+        orderId,
+      });
+    } else {
+      html = invoiceTemplate({
+        invoiceNumber,
+        invoiceDate,
+        dueDate,
+        placeOfSupply,
+        customerName,
+        addressLine1,
+        addressLine2,
+        addressLine3,
+        courseName,
+        courseId,
+        quantity,
+        rate,
+        gstPercent,
+        gstAmount,
+        amountInWords,
+        orderId,
+      });
+    }
 
     const pdfBuffer = await generatePdf(html);
 

@@ -109,6 +109,8 @@ exports.verifyPayment = async (req, res) => {
   } = req.body;
 
   const userId = req.user.id;
+  const email = req.user.email;
+  const name = req.user.name;
 
   if (
     !razorpay_order_id ||
@@ -151,10 +153,19 @@ exports.verifyPayment = async (req, res) => {
       });
 
       if (url) {
+        const emailHtml = await invoiceEmailTemplate(
+          name,
+          session.courseIds,
+          email,
+          session.amountPaid,
+          `https://www.cntacademy.com/privacy-policy`,
+          url
+        );
+
         await mailSender(
-          req.user.email,
-          `Successfully ganarated the Invoice`,
-          invoiceEmailTemplate(req.user.name, url)
+          email,
+          "Welcome to CNT Academy – Your Learning Journey Begins Now!",
+          emailHtml
         );
       }
 
