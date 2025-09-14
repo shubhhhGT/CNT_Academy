@@ -2,12 +2,34 @@ const Course = require("../models/Course");
 const CourseProgress = require("../models/CourseProgress");
 const Testimonial = require("../models/Testimonial");
 const User = require("../models/User");
+const s3 = require("../utils/s3Client");
+const { PutObjectCommand } = require("@aws-sdk/client-s3");
+const { v4: uuidv4 } = require("uuid");
+const MAX_VIDEO_SIZE = 50 * 1024 * 1024; // 50 MB in bytes
+const BUCKET_NAME = process.env.S3_BUCKET_NAME;
 
 // Create Testimonial
 exports.createTestimonial = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { courseId, rating, review, videoUrl } = req.body;
+    const { courseId, rating, review } = req.body;
+
+    if (!req.files || !req.files.video) {
+      return res.status(400).json({
+        success: false,
+        message: "Video file is required.",
+      });
+    }
+
+    const video = req.files.video;
+
+    // Check file size (max 50 MB)
+    if (video.size > MAX_VIDEO_SIZE) {
+      return res.status(400).json({
+        success: false,
+        message: "Video size must not exceed 50 MB.",
+      });
+    }
 
     // 1. Validate: User must be enrolled in course
     const course = await Course.findOne({
@@ -28,9 +50,11 @@ exports.createTestimonial = async (req, res) => {
       userId: userId,
     });
 
-    const totalVideos = course.courseContent
-      .flatMap((section) => section.subSections)
-      .map((subSection) => subSection._id.toString());
+    const totalVideos =
+      course.courseContent
+        ?.flatMap((section) => section.subSections || [])
+        .map((subSection) => subSection?._id?.toString())
+        .filter(Boolean) || [];
 
     const completedVideos =
       courseProgress?.completedVideos.map((v) => v.toString()) || [];
@@ -59,6 +83,21 @@ exports.createTestimonial = async (req, res) => {
         message: "You have already submitted a testimonial for this course.",
       });
     }
+
+    // Generate unique file key
+    const fileKey = `CNT_Academy/testimonials/${uuidv4()}-${video.name}`;
+
+    // Upload video to S3
+    await s3.send(
+      new PutObjectCommand({
+        Bucket: BUCKET_NAME,
+        Key: fileKey,
+        Body: video.data,
+        ContentType: video.mimetype,
+      })
+    );
+
+    const videoUrl = `https://${BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileKey}`;
 
     // 4. Create testimonial
     const user = await User.findById(userId);
@@ -95,7 +134,7 @@ exports.getAllTestimonials = async (req, res) => {
       })
       .populate({
         path: "course",
-        select: "courseName",
+        select: "courseName courseDescription",
       })
       .sort({ createdAt: -1 }); // latest first
 
