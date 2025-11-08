@@ -150,6 +150,7 @@ exports.verifyPayment = async (req, res) => {
         courseIds: session.courseIds,
         orderId: session.orderId,
         amountPaid: session.amountPaid,
+        userId,
       });
 
       if (url) {

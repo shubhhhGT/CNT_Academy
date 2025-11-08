@@ -24,6 +24,7 @@ exports.downloadInvoice = async (invoiceData) => {
       quantity,
       rate,
       orderId,
+      userId,
       customerName = "Unknown",
     } = invoiceData;
 
@@ -102,6 +103,7 @@ exports.downloadInvoice = async (invoiceData) => {
       amountInWords,
       orderId,
       pdfUrl: s3Url,
+      userId,
     });
 
     return s3Url; // return URL if needed

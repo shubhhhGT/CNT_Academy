@@ -19,6 +19,11 @@ const invoiceSchema = new mongoose.Schema(
     amountInWords: { type: String, required: true },
     orderId: { type: String, required: true },
     pdfUrl: { type: String, required: true },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: true }
 );

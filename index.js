@@ -24,6 +24,7 @@ const eventRoutes = require("./routes/Event");
 const newsletterRoutes = require("./routes/Newsletter");
 const couponRoutes = require("./routes/Coupon");
 const invoiceRoutes = require("./routes/Invoice");
+const userReportRoutes = require("./routes/UserReport");
 
 const PORT = process.env.PORT || 4001;
 
@@ -153,6 +154,7 @@ app.use("/api/v1/event", eventRoutes);
 app.use("/api/v1/newsletter", newsletterRoutes);
 app.use("/api/v1/coupon", couponRoutes);
 app.use("/api/v1/invoice", invoiceRoutes);
+app.use("/api/v1/report", userReportRoutes);
 
 // Default route
 app.get("/", (req, res) => {

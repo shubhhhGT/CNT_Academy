@@ -6,6 +6,7 @@ exports.generateAndUploadInvoice = async ({
   courseIds,
   orderId,
   amountPaid,
+  userId,
 }) => {
   const courseDetails = await Course.find({ _id: { $in: courseIds } });
 
@@ -17,6 +18,7 @@ exports.generateAndUploadInvoice = async ({
     rate: amountPaid,
     orderId,
     customerName: billingInfo?.nameOnInvoice || "Unknown",
+    userId,
   };
 
   return await downloadInvoice(invoicePayload);
